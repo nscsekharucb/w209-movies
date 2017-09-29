@@ -1,0 +1,1783 @@
+/* Basic page layout from http://www.456bereastreet.com/lab/developing_with_web_standards/csslayout/2-col/ */
+/* font-size specification from http://kyleschaeffer.com/development/css-font-size-em-vs-px-vs-pt-vs/ */
+/* webkit-text-size-adjust property from http://stackoverflow.com/questions/2545542/font-size-render-in-iphone */
+body {
+    margin: 0;
+	padding: 0;
+    color: #000;
+    background: #f0f0f0;
+    font-family: Verdana,Arial,Helvetica,Geneva;
+    font-size: 80%; 
+    -webkit-text-size-adjust: 100%; 
+    -moz-text-size-adjust: 100%; 
+    -ms-text-size-adjust: 100%; 
+}
+
+#wrap {
+    width: 1096px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    box-shadow: 4px 4px 4px #888;
+    display: table;
+}
+
+#header {
+    background: #663366;
+    font-size: 120%;
+    vertical-align: text-top;
+    text-align: left;
+    float: left;
+    width: 896px;
+    height: 95px;
+    border-bottom: 1px solid #885588;
+}
+#header a {
+    text-decoration: none;
+    color: #ffffff;
+}
+#header img {
+    vertical-align: text-top;
+}
+#header_right {
+    float: right;
+    width: 200px;
+    vertical-align: text-top;
+    color: #ffffff;
+    font-size: 120%;
+}
+
+#header_right img {
+	vertical-align:middle;
+}
+
+.pagination {
+    display: inline-block !important; 
+}
+
+.pagination a {
+    color: black !important;
+    float: left !important;
+    padding: 4px 8px !important;
+    text-decoration: none !important;
+    transition: background-color .3s !important;
+    border: 1px solid #ddd !important;
+}
+
+.pagination a.active {
+    background-color: #ffeeee !important;
+/*    color: white !important;
+    border: 1px solid #4CAF50 !important;*/
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd!important;}
+
+#nav {
+    background: #663366;
+    width: 1096px;
+    display: block;
+    float: right;
+}
+
+/* Menu Drop-downs from https://www.servage.net/blog/2009/03/20/create-a-cool-css-based-drop-down-menu/ */
+#nav ul {
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#nav ul li {
+    display: block;
+    position: relative;
+    float: left;
+    z-index: 999;
+}
+#nav li ul { display: none; }
+#nav ul li a {
+  display: block;
+  text-decoration: none;
+  color: #ffffff;
+  border-right: 1px solid #885588;
+  padding: 4px 15px 4px 15px;
+  background: #663366;
+/*  margin-left: 1px; */
+  white-space: nowrap;
+}
+#nav ul li a:hover { background: #885588; }
+#nav li:hover ul {
+  display: block;
+  position: absolute;
+}
+#nav li:hover li {
+  float: none;
+  font-size: 90%;
+}
+#nav li:hover a { background: #885588; }
+#nav li:hover li a:hover { background: #663366; }
+
+#banneradnew {
+    float: left;
+    background: #ffffff;
+    width: 1096px;
+}
+
+#main {
+    float: left;
+    background: #ffffff;
+    width: 750px;
+/*    border-right: 10px solid #f0f0f0; */
+}
+#main h1 {
+    text-align: center;
+    font-size: 160%;
+}
+
+#main h1.lessmargin {
+    text-align: center;
+    font-size: 160%;
+	margin: 0em 0 0em;
+	padding: 0 0 0 1em;
+}
+
+#main h1.lessmargin_bottom {
+    text-align: center;
+    font-size: 160%;
+	margin-bottom: 0; 
+}
+
+#main h1.mediummargin {
+    text-align: center;
+    font-size: 160%;
+	margin: 0em 0 0em;
+	padding: 10px 0 0 1em;
+}
+
+#main h2 {
+    text-align: left;
+    font-size: 140%;
+    border-bottom: 1px solid black;
+}
+#main h3 {
+    text-align: center;
+    border-bottom: none;
+    font-size: 130%;
+    margin-top: 24px;
+}
+
+/* fix to decrease top margin between movie/people information and synopsis on trending pages */
+
+h2.headertrending {
+    text-align: left;
+    font-size: 140%;
+    border-bottom: 1px solid black;
+	margin-top:0;
+}
+
+p.moreinfotrending {
+    text-align: right;
+	margin-top:0;
+}
+/* 3-column page lede from http://webdesign.about.com/od/csstutorials/ss/css_layout_sbs_9.htm */
+#main #col1 {
+/*    width: 140px;*/
+    float: left;
+    margin: 0px 0px 10px 0px;
+}
+#main #col2outer {
+/*    width: 610px;*/
+    float: right;
+    margin: 0px 0px 10px 0px;
+    padding: 0;
+}
+#col2outer #col2mid {
+/*    width: 470px;*/
+    float: left;
+    margin: 0px 0px 10px 0px;
+}
+#col2outer #col2side {
+/*    width: 140px;*/
+    float: right;
+    margin: 0px 0px 10px 0px;
+}
+
+/* Text content for main page (news articles etc.) */
+#main #content {
+    padding: 10px;
+}
+
+/* Links to various social networks */
+#social_vertical { margin: 0; }
+#social_vertical li { display:block; margin-right:0; padding-right:2px; list-style:none; min-width:80px; } 
+#social_horizontal { margin: 0; }
+#social_horizontal li { float: left; display:block; margin-right:0; padding-right:2px; list-style:none; min-width:80px; } 
+
+#sidebar {
+    float: right;
+    background: #ffffff;
+    width: 336px;
+    display: table-cell;
+}
+#sidebar h1 {
+    font-size: 140%;
+    color: #663366;
+    margin: 4px 0 0px 20px;
+}
+#sidebar ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 1em;
+    text-indent: -1em;
+    line-height: 1.5em;
+}
+#sidebar li {
+    margin: 0 0 0 20px;
+    padding: 0;
+    line-height: 1.5em;
+}
+#sidebar a:link { text-decoration: none; color:#000; }
+#sidebar a:visited { text-decoration: none; color:#000; }
+#sidebar a:hover { text-decoration: underline; }
+
+#sidebar a.inh1:link { text-decoration: none; color: #663366; }
+#sidebar a.inh1:visited { text-decoration: none; color: #663366; }
+#sidebar a.inh1:hover { text-decoration: underline; }
+
+#footer {
+    clear: both;
+    background: #ffffff;
+}
+/* Fix for IE layout problem with the footer */
+* html #footer {
+    height: 1px;
+}
+
+/* Superscripts and subscripts that don't break the line spacing http://www.htmldog.com/examples/superscript.html */
+.superscr {
+	position: relative;
+	bottom: 0.5em;
+	font-size: 0.8em;
+}
+
+.subscr {
+	position: relative;
+	top: 0.3em;
+	font-size: 0.8em;
+}
+
+/* Interior page tabs from http://blixt.org/articles/tabbed-navigation-using-css */
+ol#toc {
+    height: 2em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid black;
+}
+
+ol#toc li {
+    float: left;
+    margin: 0 2px 0 0;
+}
+
+ol#toc a {
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid gray;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: black;
+    display: block;
+    float: left;
+    height: 1.95em;
+    padding: 0px 9px 0px 9px;
+/*    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 4px; */
+    background-color: #e0e0e0;
+    text-decoration: none;
+}
+
+ol#toc a:hover {
+    background-color: #f0f0f0;
+}
+
+ol#toc a.active {
+    background-color: #fff;
+    border-bottom: 1px solid white;
+}
+
+div.content {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    clear: left;
+    padding: 1em;
+}
+
+div.content.inactive {
+    display: none;
+}
+
+/* Thumbnail images */
+.thumbnail {
+    width: 106px;
+    padding: 0px 0px 0px 16px;
+    font-size: 80%;
+    text-align: center;
+    float: right;
+}
+
+.thumbnail img {
+    padding: 3px;
+    border: 1px solid black;
+    box-shadow: 4px 4px 4px #888;
+}
+
+/* Headers that are also links to articles */
+.link_header a {
+    color: black;
+    text-decoration: none;
+}
+.link_header a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* General layout classes for data */
+.data {
+    text-align: right;
+}
+.estimate { color: green; }
+.chart_estimate { color: green; }
+.chart_down { color:#ff0000; }
+.chart_up { color:#0000ff; }
+.chart_grey { color:#666666; }
+.highlight { background: #ffeeee; }
+.dropshadow {
+    border: 1px solid black;
+    box-shadow: 4px 4px 4px #888;
+    margin-bottom: 8px;
+}
+
+/* The page-filling chart is the default chart that fills the width of the main content column */
+div#page_filling_chart {
+	margin: 0 15px 0;
+/*	width: 720px; */
+}
+div#page_filling_chart p {
+/*	width: 720px; */
+}
+div#page_filling_chart table {
+	margin: 0;
+	border: 1px solid gray;
+    text-align: left;
+/*	width: 720px; */
+}
+div#page_filling_chart th {
+    text-align: center;
+}
+div#page_filling_chart td {
+	font-size: 80%;
+	margin: 0px 0px 0px 2px; 
+	border-top: 1px solid #d0d0d0;
+}
+div#page_filling_chart h1 {
+	text-align: center;
+	font-size: 140%;
+	margin: 2em 0 0em;
+	padding: 0 0 0 1em;
+}
+div#page_filling_chart h2 {
+	text-align: left;
+	font-size: 12pt;
+	margin: 2em 0 0 0em;
+	padding: 0 0 0 0em;
+	border-bottom: 1px solid #d0d0d0;
+}
+div#page_filling_chart h3 {
+	text-align: left;
+	font-size: 12pt;
+	background: #d0d0d0;
+	margin: -3px;
+	padding: 10px 0 1px 6px;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+}
+/* ---------- Specific layouts for specific pages ---------- */
+table#movie_finances {
+    width: 440px;
+    border: 1px solid black;
+    margin: 0px 15px;
+    border-spacing: 0px;
+    box-shadow: 4px 4px 4px #888;
+}
+table#movie_finances tr.heading {
+    background: #f0f0f0;
+    text-align: center;
+}
+table#movie_finances td.headed {
+    border-top: 1px solid black;
+}
+table#movie_finances td {
+    padding: 3px;
+}
+table#movie_finances td.data {
+    text-align: right;
+}
+table#movie_finances td.sum {
+    border-bottom: 1px solid black;
+}
+
+table#movie_ratings {
+/*    width: 440px; */
+    border-spacing: 0px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+}
+table#movie_ratings a {
+    color: black;
+}
+table#movie_ratings tr.heading {
+    background: #e0e0e0;
+    font-weight: bold;
+}
+
+div#box_office_chart {
+    width: 600px;
+    margin: 0px 60px;
+}
+div#box_office_chart table {
+	margin: 0;
+	border: 1px solid gray;
+    border-spacing: 0px;
+}
+div#box_office_chart tr.weekend {
+    background-color: #ffeeff;
+}
+div#box_office_chart td {
+	font-size: 90%;
+	margin: 0px 0px 0px 2px; 
+	border-top: 1px solid #d0d0d0;
+    padding: 2px;
+}
+
+table#movie_selection_form  {
+    border: 0px solid black;
+	width:100%;
+}
+table#movie_selection_form tr {
+    border: 0px solid black;
+}
+table#movie_selection_form td {
+    border: 0px solid black;
+}
+
+table#movie_selection_form td.full {
+    width:40%;
+}
+
+table#movie_selection_form td.middle {
+    width:20%;
+}
+
+
+table#movie_selection_form tr td:empty {
+    width: 20px;
+}
+
+/* Sortable tables */
+table.sortable thead {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    cursor: default;
+}
+
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+    content: " \25B4\25BE" 
+}
+
+table.sortable tbody {
+    counter-reset: sortabletablescope;
+}
+table.sortable thead tr::before {
+    content: "";
+    display: table-cell;
+}
+
+table.sortable tbody tr::before {
+    content: counter(sortabletablescope);
+    counter-increment: sortabletablescope;
+    display: table-cell;
+	font-size: 80%;
+}
+
+
+
+/* News Articles */
+div#news {
+    padding: 10px 18px 10px 20px;
+/*	width: 700px; */
+}
+
+div#news h1 {
+	font-weight: bold;
+    font-size: 160%;
+	color: black;
+	padding: 1px 0 4px 0px;
+	margin: 0;
+/*	border-bottom: 1px solid gray; */
+    text-align: left;
+}
+div#news h1 a {
+    text-decoration: none;
+    color: black;
+}
+
+div#news p {
+	margin: 0 0 10px 0px;
+}
+
+/* News Articles embedded */
+div#news_embedded {
+    padding: 10px 18px 10px 0px;
+/*	width: 700px; */
+}
+
+div#news_embedded h1 {
+	font-weight: bold;
+    font-size: 160%;
+	color: black;
+	padding: 1px 0 4px 0px;
+	margin: 0;
+/*	border-bottom: 1px solid gray; */
+    text-align: left;
+}
+div#news_embedded h1 a {
+    text-decoration: none;
+    color: black;
+}
+
+div#news_embedded p {
+	margin: 0 0 10px 0px;
+}
+
+
+/* Graphs from the market charts section */
+table.graph {
+	border: none; 
+	width: 600px;
+	border-spacing: 0px;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+	vertical-align: bottom;
+}
+
+td.graph_left {
+	text-align: right;
+	border-spacing: 0px;
+	padding: 0px;
+	margin: 0px;
+	vertical-align: bottom;
+}
+
+td.graph_body {
+	background: white url(/images/grid.gif) repeat left bottom;
+	border-spacing: 0px;
+	padding: 0px;
+	margin: 0px;
+	vertical-align: bottom;
+    font-size: 70%;
+}
+
+td.graph_right {
+	text-align: left;
+	border-spacing: 0px;
+	padding: 0px;
+	margin: 0px;
+	vertical-align: bottom;
+}
+
+/* Log-in pop-up window http://cssdeck.com/labs/amazing-css3-login-form */
+div#blanket {
+    background-color: #111;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    position: absolute;
+    z-index: 9001;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+div#login_wrapper {
+    position: absolute;
+    background: #f3f3f3;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: 1px solid #fff;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 400px;
+    margin-left: -150px;
+    margin-top: -200px;
+    z-index: 9002;
+}
+/*******************
+LOGIN FORM
+*******************/
+
+.login_form {
+	margin: 0 auto;
+	position: relative;
+	
+	background: #f3f3f3;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	
+	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/*******************
+HEADER
+*******************/
+
+.login_form .login_header {
+	padding: 40px 30px 30px 30px;
+}
+
+.login_form .login_header h1 {
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 28px;
+	line-height:34px;
+	color: #414848;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+	margin-bottom: 10px;
+}
+
+.login_form .login_header span {
+	font-size: 11px;
+	line-height: 16px;
+	color: #678889;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+}
+
+/*******************
+CONTENT
+*******************/
+
+.login_form .login_content {
+	padding: 0 30px 25px 30px;
+}
+
+/* Input field */
+.login_form .login_content .input {
+	width: 188px;
+	padding: 15px 25px;
+	
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	color: #9d9e9e;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+	
+	background: #fff;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.50);
+}
+
+/* Second input field */
+.login_form .login_content .password, .login_form .login_content .pass-icon {
+	margin-top: 25px;
+}
+
+.login_form .login_content .input:hover {
+	background: #dfe9ec;
+	color: #414848;
+}
+
+.login_form .login_content .input:focus {
+	background: #dfe9ec;
+	color: #414848;
+	
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+}
+
+.user_icon, .pass_icon {
+	width: 46px;
+	height: 47px;
+	display: block;
+	position: absolute;
+	left: 0px;
+	padding-right: 2px;
+	z-index: -1;
+	
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+}
+
+.user_icon {
+	top:153px; /* Positioning fix for slide-in, got lazy to think up of simpler method. */
+	background: rgba(65,72,72,0.75) url(http://www.demo.amitjakhu.com/login-form/images/user-icon.png) no-repeat center;	
+}
+
+.pass_icon {
+	top:201px;
+	background: rgba(65,72,72,0.75) url(http://www.demo.amitjakhu.com/login-form/images/pass-icon.png) no-repeat center;
+}
+
+.login_content input:focus + div{
+	left: -46px;
+}
+
+/* Animation */
+.input, .user_icon, .pass_icon, .button, .register {
+	transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+}
+
+/*******************
+FOOTER
+*******************/
+
+.login_form .login_footer {
+/*	padding: 25px 30px 40px 30px; */
+	padding: 17px 30px 17px 30px;
+	overflow: auto;
+	
+	background: #d4dedf;
+	border-top: 1px solid #fff;
+	
+	box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+	-moz-box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+	-webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,0.15);
+}
+
+/* Login button */
+.login_form .login_footer .button {
+	float:right;
+	padding: 11px 25px;
+	
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 18px;
+	color: #fff;
+	text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
+	
+	background: #56c2e1;
+	border: 1px solid #46b3d3;
+	border-radius: 5px;
+	cursor: pointer;
+	
+	box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+}
+
+.login_form .login_footer .button:hover {
+	background: #3f9db8;
+	border: 1px solid rgba(256,256,256,0.75);
+	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.login_form .login_footer .button:focus {
+	position: relative;
+	bottom: -1px;
+	
+	background: #56c2e1;
+	
+	box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+}
+
+/* Register button */
+.login_form .login_footer .register {
+	display: block;
+	float: right;
+	padding: 10px;
+	margin-right: 20px;
+	
+	background: none;
+	border: none;
+	cursor: pointer;
+	
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 18px;
+	color: #414848;
+	text-shadow: 0px 1px 0 rgba(256,256,256,0.5);
+}
+
+.login_form .login_footer .register:hover {
+	color: #3f9db8;
+}
+
+.login_form .login_footer .register:focus {
+	position: relative;
+	bottom: -1px;
+}
+
+/* Big Button */
+div#big_button {
+	padding: 11px 25px;
+    text-align: center;
+	
+	font-weight: 300;
+	font-size: 18px;
+	color: #fff;
+	text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
+	
+	background: #56c2e1;
+	border: 1px solid #46b3d3;
+	border-radius: 5px;
+	cursor: pointer;
+	
+	box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+
+	transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+}
+
+div#big_button a {
+    color: #fff;
+    text-decoration: none;
+}
+
+div#big_button:hover {
+	background: #3f9db8;
+	border: 1px solid rgba(256,256,256,0.75);
+	
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+div#big_button:focus {
+	position: relative;
+	bottom: -1px;
+	
+	background: #56c2e1;
+	
+	box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	-moz-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+	-webkit-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+}
+
+/* General format tweaks */
+
+td { vertical-align: text-top; }
+a:link { text-decoration: none; color:#1010d0; }
+a:visited { text-decoration: none; color:#1010d0; }
+.alignleft {float:left;}
+.alignright {float:right;}
+.clearfloats {clear:both;}
+
+
+/* ---------- Everything else is legacy ------------- */
+
+
+table.month { border:1px solid #999; width: 240px; }
+tr.month-row {  }
+td.month-weekend-day { font-size: 9pt; text-align: center; }
+td.month-day { font-size: 9pt; text-align: right; width: 16px; }
+/*td.month-day:hover  { background:#eceff5; }*/
+td.month-day-np  { width: 16px; }
+td.month-head { font-weight:bold; text-align:center; background:#999; color: white;/*border-bottom:1px solid #999; border-top:1px solid #999;*/ }
+td.month-day-head { font-weight:bold; text-align:center; padding:2px; border-bottom:1px solid #999; width: 16px; /*border-top:1px solid #999;*/ }
+td.month-weekend-head { font-weight:bold; text-align:center; padding:2px; border-bottom:1px solid #999; /*border-top:1px solid #999;*/ }
+td.month-day, td.month-day-np { padding:2px; }
+
+form.searchform {
+/*	margin: 0 250px 0;*/
+	margin-right:auto;
+	margin-left:auto;
+	width: 220px;
+	text-align: center;
+}
+
+table.pintable { 
+ background-color: #FFFFFF;
+ margin: 0 15px 0;
+/* margin-left: auto; */
+/* margin-right: auto; */
+ padding: 0px;
+ width: 96%;
+ border: 0px solid #333;
+ border-collapse:collapse;
+}
+
+table.pintable tr{ 
+ vertical-align:top;
+ border: 0px solid #333;
+ font-size: 100%;
+}
+
+table.pintable td{ 
+ vertical-align:top;
+ border: 0px solid #333;
+}
+
+table.pintable td.index{ 
+ text-align: center;
+ vertical-align:top;
+ width:40%;
+ border: 0px solid #333;
+ margin-top: 0px;
+ margin-bottom: 0px;
+ margin-left: 0px;
+}
+
+table.pintable td.previous{ 
+ text-align: left;
+ vertical-align:top;
+ border: 0px solid #333;
+ width:30%;
+}
+
+table.pintable td.next{ 
+ text-align: right;
+ vertical-align:top;
+ border: 0px solid #333;
+ width:30%;
+}
+
+table.socialtable { 
+ background-color: #FFFFFF;
+ margin: 0 15px 0;
+/* margin-left: auto; */
+/* margin-right: auto; */
+ padding: 0px;
+ width: 96%;
+ border: 0px solid #333;
+ border-collapse:collapse;
+}
+
+table.socialtable tr{ 
+ vertical-align:top;
+ border: 0px solid #333;
+ font-size: 100%;
+}
+
+table.socialtable td{ 
+ vertical-align:top;
+ border: 0px solid #333;
+}
+
+table.socialtable td.previous{ 
+ text-align: left;
+ vertical-align:top;
+ border: 0px solid #333;
+ width:40%;
+}
+
+table.socialtable td.next{ 
+ text-align: right;
+ vertical-align:top;
+ border: 0px solid #333;
+ width:60%;
+}
+
+div.bannerad{
+padding-top:0px;
+width:728px;
+height:100px;
+}
+
+div#half_page_chart {
+	margin-left: auto;
+	margin-right: auto;
+	width: 480px;
+	text-align: center;
+}
+div#half_page_chart table {
+	border: 1px solid gray;
+	width: 480px;
+	/* vertical-align: top; */
+}
+div#half_page_chart td {
+	font-size: 8pt;
+	margin: 0px 0px 0px 2px; 
+	border-top: 1px solid #d0d0d0;
+	vertical-align: text-top;
+}
+div#half_page_chart h1 {
+	text-align: center;
+	font-size: 12pt;
+	margin: 2em 0 0.5em;
+	padding: 0 0 0 1em;
+}
+
+
+#feature {font-family:Verdana,Arial,Helvetica,Geneva;font-size:9pt;color:black;margin:5px}
+#caption {font-family:Verdana,Arial,Helvetica,Geneva;font-size:7pt;color:black;margin:5px}
+#heading {font-family:Verdana,Arial,Helvetica,Geneva;font-size:11pt;font-weight:bold;color:black;margin:5px}
+#tbody {font-family:Verdana,Arial,Helvetica,Geneva;font-size:10pt;color:black}
+/* Sortable tables */
+table.sortable a.sortheader {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+}
+table.sortable span.sortarrow {
+    color: black;
+    text-decoration: none;
+}
+
+/* Show only to IE PC \*/
+* html .boxhead h2 {height: 1%;} /* For IE 5 PC */
+
+.sidebox {
+	margin: 0 auto; /* center for now */
+	width: 17em; /* ems so it will grow */
+	background: url(/interactive/curvedbox/sbbody-r.gif) no-repeat bottom right;
+	font-size: 100%;
+}
+.boxhead {
+	background: url(/interactive/curvedbox/sbhead-r.gif) no-repeat top right;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+.boxhead h2 {
+	background: url(/interactive/curvedbox/sbhead-l.gif) no-repeat top left;
+	margin: 0;
+	padding: 22px 30px 5px;
+	color: white; 
+	font-weight: bold; 
+	font-size: 1.2em; 
+	line-height: 1em;
+	text-shadow: rgba(0,0,0,.4) 0px 2px 5px; /* Safari-only, but cool */
+}
+.boxbody {
+	background: url(/interactive/curvedbox/sbbody-l.gif) no-repeat bottom left;
+	margin: 0;
+	padding: 5px 30px 31px;
+}
+
+
+div#news_narrow {
+	width: 585px;
+	padding: 0px 10px;
+}
+
+div#news_narrow h1 {
+	/* background-color: #996699; */
+	font-family: Verdana,Arial,Helvetica,Geneva;
+	font-size: 11pt;
+	font-weight: bold;
+	color: black;
+	padding: 1px 10px;
+	margin: 0;
+	border-bottom: 1px solid gray;
+}
+
+div#news_narrow td, th {
+	font-size: 9pt;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+div#news_narrow p {
+	font-size: 9pt;
+	margin: 0 0 1em 0.5em;
+}
+
+div#newspane {
+	display: block;
+	margin: 2em 2em 0 1em;
+	width: 60em;
+	border: 1px solid black;
+	/* background: rgb( 90%, 90%, 90% ); */
+}
+
+div#newspane h1 {
+	font-size: 12pt;
+	margin: 0;
+	padding: 0 0 0 1em;
+	background: #e0e0e0;
+	border-bottom: 1px dotted #A0A0A0;
+}
+
+div#newspane h2 {
+	font-size: 10pt;
+	margin: 0;
+	padding: 0;
+}
+
+p#newssubhead {
+	font-size: 6pt;
+	text-align: right;
+	margin: 0;
+	padding: 0;
+}
+
+div#newspane td {
+	vertical-align: top;
+	border-right: 1px dotted #a0a0a0;
+	padding: 5px;
+	font-size: 8pt;
+}
+
+div#newspane a {
+	color: #004276;
+}
+
+div#movienews { 
+	display: block;
+	margin: 2em 2em 0 1em;
+	width: 50em;
+	border: 1px solid black;
+	/* background: rgb( 90%, 90%, 90% ); */
+}
+div#movienews h1 {
+	font-size: 12pt;
+	margin: 0;
+	padding: 0 0 0 1em;
+	background: #e0e0e0;
+	border-bottom: 1px dotted #A0A0A0;
+}
+div#movienews a {
+	color: #004276;
+}
+
+div#movienewsitem {
+	background: #fcfcfc;
+	padding: 2px;
+	font-size: 0.9em;
+}
+div#movienewsfooter {
+	text-align: right;
+	border-top: 1px solid gray;
+	background: #FFFFFF;
+	font-size: 0.8em;
+	padding: 0.2em;
+}
+div#moviechart table {
+	margin: 0;
+	padding: 0;
+	border: 1px solid gray;
+	width: 35em;
+	/* vertical-align: top; */
+}
+div#moviechart td {
+	font-size: 9pt;
+	border-top: 1px solid #d0d0d0;
+}
+
+div#spotlight {
+	border: 1px dotted gray;
+	padding: 4px;
+	background: #f0f0f0;
+}
+
+
+div#narrowchart {
+	margin: 0.2em 1em 0.2em;
+}
+div#narrowchart table {
+	margin: 0;
+	border: 1px solid gray;
+	width: 35em;
+	/* vertical-align: top; */
+}
+div#narrowchart td {
+	font-size: 8pt;
+	border-top: 1px solid #d0d0d0;
+}
+div#narrowchart h1 {
+	font-size: 10pt;
+	text-align: center;
+	margin: 0 0 -1px;
+	padding: 2px 0 1px 0;
+/*	text-indent: 1em; */
+	border-bottom: 1px solid gray;
+	width: 42em;	
+	background: rgb( 90%, 90%, 90% ) url( /images/ch-tr.gif ) top right no-repeat;
+}
+
+div#synopsis { 
+	display: block;
+	margin: 1.5em 2em 1em 1em;
+	width: 50em;
+	/* background: rgb( 90%, 90%, 90% ); */
+}
+
+div#synopsis h1 {
+	font-size: 12pt;
+	margin: 0;
+	padding: 0.33em 0 0;
+	border-bottom: 1px solid gray;
+}
+div#synopsis p {
+	font-size: 8pt;
+	margin: 0;
+	padding: 0.33em 0 0;
+}
+
+div#links { 
+	display: block;
+	margin: 1.5em 2em 1em 1em;
+	width: 50em;
+	/* background: rgb( 90%, 90%, 90% ); */
+}
+
+div#links h1 {
+	font-size: 12pt;
+	margin: 0;
+	padding: 0.33em 0 0;
+	border-bottom: 1px solid gray;
+}
+div#links p {
+	font-size: 8pt;
+	margin: 0;
+	padding: 0.33em 0 0;
+}
+div#cast { 
+	display: block;
+	width: 50em;
+	margin: 1.5em 2em 1em 1em;
+	border: 1px solid gray;
+	padding: 0 0 0.5em;
+	background: rgb( 95%, 95%, 95% );
+}
+
+div#cast h1 {
+	font-size: 12pt;
+	text-align: center;
+	margin: 0;
+	padding: 0.33em 0 0;
+	border-bottom: 1px solid gray;	
+	background: rgb( 90%, 90%, 90% );
+}
+div#cast p {
+	font-size: 9pt;
+	margin: 0;
+	padding: 0.33em 0 0;
+}
+
+div#amad { 
+	/* display: block; */
+	margin: 0;
+	padding: 0;
+	float: right;
+	width: 350px;
+	/* background: rgb( 0%, 90%, 90% ); */	
+}
+
+div#moviechart { 
+	display: block;
+	margin: 2em 2em 0 1em;
+	text-align:center;
+	padding: 0 0 1em 0;
+	width: 35em;
+	font-size: 6pt;
+	/* background: rgb( 90%, 90%, 90% ); */
+}
+div#moviechart h1 {
+	font-size: 12pt;
+	text-align: left;
+	margin: -1px 0;
+	padding: 0;
+	border-bottom: 1px solid gray;
+	width: 35em;	
+	background: rgb( 90%, 90%, 90% ) url( /images/ch-tr.gif ) top right no-repeat;
+}
+div#moviechart table {
+	margin: 0;
+	border: 1px solid gray;
+	width: 35em;
+	/* vertical-align: top; */
+}
+div#moviechart td {
+	font-size: 9pt;
+	border-top: 1px solid #d0d0d0;
+}
+div#widemoviechart { 
+	display: block;
+	margin: 2em 2em 0 1em;
+	text-align:center;
+	padding: 0 0 1em 0;
+	width: 45em;
+	/* background: rgb( 90%, 90%, 90% ); */
+}
+div#widemoviechart h1 {
+	font-size: 12pt;
+	text-align: left;
+	margin: -1px 0;
+	padding: 0;
+	border-bottom: 1px solid gray;
+	width: 45em;	
+	background: rgb( 90%, 90%, 90% ) url( /images/ch-tr.gif ) top right no-repeat;
+}
+div#widemoviechart table {
+	margin: 0;
+	border: 1px solid gray;
+	width: 45em;
+	/* vertical-align: top; */
+}
+div#widemoviechart td {
+	padding: 0.2em;
+	font-size: 9pt;
+	border-top: 1px solid #d0d0d0;
+}
+
+td#arrow {
+	font-size: 8pt;
+	margin: 0;
+	padding: 0.2em 0.3em 0.2em 0;
+}
+div#chartkey {
+	text-align: left;
+	width: 500px;
+	padding: 0.1em;
+	margin: 0.1em;
+	/* background: rgb( 90%, 90%, 90% ); */
+	
+}
+img.ckimg {
+	vertical-align: middle;
+}
+
+div#star h1 {
+	font-size: 14pt;
+	margin: 0 0 1em 1em;
+	padding: 0.33em 0 0;
+	border-bottom: 1px solid gray;
+	text-align: center;
+}
+
+div#starinfo { 
+	display: block;
+	margin: 1.5em 2em 1em 1em;
+	width: 50em;
+	/* background: rgb( 90%, 90%, 90% ); */
+}
+
+div#starinfo h1 {
+	font-size: 12pt;
+	margin: 1em 0 0.33em 0;
+	padding: 0 0 0;
+	border-bottom: 1px solid gray;
+	text-align: left;
+}
+
+td#starlink {
+	font-size: 8pt;
+	vertical-align: text-top;
+	padding: 0;
+}
+
+div#starad {
+	display: block;
+	text-align: center;
+}
+
+div#appearances {
+	display: block;
+	margin: 1.5em 2em 1em 1em;
+	width: 60em;
+}
+div#appearances h1 {
+	font-size: 12pt;
+	text-align: left;
+	margin: -1px 0;
+	padding: 0;
+	width: 40em;
+	border-bottom: 1px solid gray;
+	background: rgb( 90%, 90%, 90% ) url( /images/ch-tr.gif ) top right no-repeat;
+}
+div#appearances table {
+	margin: 0;
+	border: 1px solid gray;
+	width: 40em;
+}
+div#appearances td {
+	font-size: 8pt;
+	padding: 2px;
+	border-top: 1px solid #d0d0d0;
+}
+
+div#footer {
+	margin: 5em 0 0 0;
+	text-align: center;
+	border-top: 1px solid gray;
+	padding: 0.33em 0 1em 0;
+}
+span#smaller {
+	font-size:8pt;
+}
+
+div#debug {
+	display: none;
+}
+
+table#quicklinks {
+	background: rgb(80%,80%,80%);
+	border: 1px solid black;
+}
+
+.alnright { text-align: right; }
+.alnleft { text-align: left; }
+.clearboth { clear: both; }
+.alnright50 { text-align:right;width:50%; }
+.alnleft50{ text-align:left;width:50%; }
+
+/*
+* CSS TOGGLE SWITCHES
+* Unlicense
+*
+* Ionuț Colceriu - ghinda.net
+* https://github.com/ghinda/css-toggle-switch
+*
+*/
+/* Supported values are px, rem-calc, em-calc */
+/* Functions */
+/* Toggle Switches */
+/* Shared */
+/* Checkbox
+*/
+/* Radio Switch
+*/
+/* Hide by default
+*/
+.switch-toggle a, .switch-light span span {
+  display: none; }
+
+/* We can't test for a specific feature,
+* so we only target browsers with support for media queries.
+*/
+@media only screen {
+  /* Checkbox switch
+  */
+  .switch-light {
+    display: block;
+    min-height: 1.875em;
+    /* Outline the toggles when the inputs are focused
+  */
+    position: relative;
+    overflow: visible;
+    padding: 0;
+    margin-left: 6.25em;
+    /* Position the label over all the elements, except the slide-button (<a>)
+  * Clicking anywhere on the label will change the switch-state
+  */
+    /* Don't hide the input from screen-readers and keyboard access
+  */ }
+    .switch-light * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; }
+    .switch-light a {
+      display: block;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out; }
+    .switch-light label, .switch-light > span {
+      line-height: 1.875em;
+      vertical-align: middle; }
+    .switch-light input:focus ~ a, .switch-light input:focus + label {
+      outline: 1px dotted #888; }
+    .switch-light label {
+      position: relative;
+      z-index: 3;
+      display: block;
+      width: 100%; }
+    .switch-light input {
+      position: absolute;
+      opacity: 0;
+      z-index: 5; }
+      .switch-light input:checked ~ a {
+        right: 0%; }
+    .switch-light > span {
+      position: absolute;
+      left: -6.25em;
+      width: 100%;
+      margin: 0;
+      padding-right: 6.25em;
+      text-align: left; }
+      .switch-light > span span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        display: block;
+        width: 50%;
+        margin-left: 6.25em;
+        text-align: center; }
+        .switch-light > span span:last-child {
+          left: 50%; }
+    .switch-light a {
+      position: absolute;
+      right: 50%;
+      top: 0;
+      z-index: 4;
+      display: block;
+      width: 50%;
+      height: 100%;
+      padding: 0; }
+
+  /* Radio switch
+  */
+  .switch-toggle {
+    display: block;
+    min-height: 1.875em;
+    /* Outline the toggles when the inputs are focused
+  */
+    position: relative;
+    display: table;
+    table-layout: fixed;
+    /* For callout panels in foundation
+  */
+    padding: 0 !important;
+    /* Generate styles for the multiple states */ }
+    .switch-toggle * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; }
+    .switch-toggle a {
+      display: block;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out; }
+    .switch-toggle label, .switch-toggle > span {
+      line-height: 1.875em;
+      vertical-align: middle; }
+    .switch-toggle input:focus ~ a, .switch-toggle input:focus + label {
+      outline: 1px dotted #888; }
+    .switch-toggle * {
+      font-size: 1em; }
+    .switch-toggle input {
+      position: absolute;
+      opacity: 0; }
+    .switch-toggle input + label {
+      position: relative;
+      z-index: 2;
+      display: table-cell;
+      width: 50%;
+      padding: 0 0.5em;
+      margin: 0;
+      text-align: center; }
+    .switch-toggle a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0;
+      z-index: 1;
+      width: 50%;
+      height: 100%; }
+    .switch-toggle input:last-of-type:checked ~ a {
+      left: 50%; }
+    .switch-toggle.switch-3 label, .switch-toggle.switch-3 a {
+      width: 33.3333333333%; }
+    .switch-toggle.switch-3 input:checked:nth-of-type(2) ~ a {
+      left: 33.3333333333%; }
+    .switch-toggle.switch-3 input:checked:last-of-type ~ a {
+      left: 66.6666666667%; }
+    .switch-toggle.switch-4 label, .switch-toggle.switch-4 a {
+      width: 25%; }
+    .switch-toggle.switch-4 input:checked:nth-of-type(2) ~ a {
+      left: 25%; }
+    .switch-toggle.switch-4 input:checked:nth-of-type(3) ~ a {
+      left: 50%; }
+    .switch-toggle.switch-4 input:checked:last-of-type ~ a {
+      left: 75%; }
+    .switch-toggle.switch-5 label, .switch-toggle.switch-5 a {
+      width: 20%; }
+    .switch-toggle.switch-5 input:checked:nth-of-type(2) ~ a {
+      left: 20%; }
+    .switch-toggle.switch-5 input:checked:nth-of-type(3) ~ a {
+      left: 40%; }
+    .switch-toggle.switch-5 input:checked:nth-of-type(4) ~ a {
+      left: 60%; }
+    .switch-toggle.switch-5 input:checked:last-of-type ~ a {
+      left: 80%; }
+
+  /* Standalone Themes */
+  /* Candy Theme
+  * Based on the "Sort Switches / Toggles (PSD)" by Ormal Clarck
+  * http://www.premiumpixels.com/freebies/sort-switches-toggles-psd/
+  */
+  .switch-candy {
+    background-color: #2d3035;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 1px 1px 1px #191b1e;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.2); }
+    .switch-candy label {
+      color: #fff;
+      -webkit-transition: color 0.2s ease-out;
+      -moz-transition: color 0.2s ease-out;
+      transition: color 0.2s ease-out; }
+    .switch-candy input:checked + label {
+      color: #333;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
+    .switch-candy a {
+      border: 1px solid #333;
+      background-color: #70c66b;
+      border-radius: 3px;
+      background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0));
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0));
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.45); }
+    .switch-candy > span {
+      color: #333;
+      text-shadow: none; }
+    .switch-candy span {
+      color: #fff; }
+    .switch-candy.switch-candy-blue a {
+      background-color: #38a3d4; }
+    .switch-candy.switch-candy-yellow a {
+      background-color: #f5e560; }
+
+  /* Android Theme
+  */
+  .switch-android {
+    background-color: #464747;
+    border-radius: 1px;
+    box-shadow: inset rgba(0, 0, 0, 0.1) 0 1px 0;
+    color: #fff;
+    /* Selected ON switch-light
+    */ }
+    .switch-android label {
+      color: #fff; }
+    .switch-android > span span {
+      opacity: 0;
+      margin-left: 7.1875em;
+      -webkit-transition: all 0.1s;
+      -moz-transition: all 0.1s;
+      transition: all 0.1s; }
+      .switch-android > span span:first-of-type {
+        opacity: 1; }
+    .switch-android > span span, .switch-android input + label {
+      font-size: 85%;
+      line-height: 2.15625em; }
+    .switch-android a {
+      background-color: #666;
+      border-radius: 1px;
+      box-shadow: inset rgba(255, 255, 255, 0.2) 0 1px 0, inset rgba(0, 0, 0, 0.3) 0 -1px 0; }
+    .switch-android.switch-light input:checked ~ a {
+      background-color: #0E88B1; }
+    .switch-android.switch-light input:checked ~ span span:first-of-type {
+      opacity: 0; }
+    .switch-android.switch-light input:checked ~ span span:last-of-type {
+      opacity: 1; }
+    .switch-android.switch-toggle, .switch-android > span span {
+      text-transform: uppercase; }
+
+  /* iOS Theme
+  */
+  .switch-ios.switch-light {
+    color: #868686; }
+    .switch-ios.switch-light a {
+      left: 0;
+      width: 1.875em;
+      background-color: #fff;
+      border: 1px solid #d3d3d3;
+      border-radius: 100%;
+      -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out;
+      box-shadow: inset 0 -3px 3px rgba(0, 0, 0, 0.025), 0 1px 4px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.1); }
+    .switch-ios.switch-light > span span {
+      width: 100%;
+      left: 0;
+      opacity: 0; }
+      .switch-ios.switch-light > span span:first-of-type {
+        opacity: 1;
+        padding-left: 1.875em; }
+      .switch-ios.switch-light > span span:last-of-type {
+        padding-right: 1.875em; }
+    .switch-ios.switch-light > span:before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 6.25em;
+      top: 0;
+      background-color: #fafafa;
+      border: 1px solid #d3d3d3;
+      border-radius: 30px;
+      -webkit-transition: all 0.5s ease-out;
+      -moz-transition: all 0.5s ease-out;
+      transition: all 0.5s ease-out;
+      box-shadow: inset rgba(0, 0, 0, 0.1) 0 1px 0; }
+    .switch-ios.switch-light input:checked ~ a {
+      left: 100%;
+      margin-left: -1.875em; }
+    .switch-ios.switch-light input:checked ~ span:before {
+      border-color: #53d76a;
+      box-shadow: inset 0 0 0 30px #53d76a; }
+    .switch-ios.switch-light input:checked ~ span span:first-of-type {
+      opacity: 0; }
+    .switch-ios.switch-light input:checked ~ span span:last-of-type {
+      opacity: 1;
+      color: #fff; }
+  .switch-ios.switch-toggle {
+    background-color: #fafafa;
+    border: 1px solid #d3d3d3;
+    border-radius: 30px;
+    box-shadow: inset rgba(0, 0, 0, 0.1) 0 1px 0; }
+    .switch-ios.switch-toggle a {
+      background-color: #53d76a;
+      border-radius: 25px;
+      -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out; }
+    .switch-ios.switch-toggle label {
+      color: #868686; }
+  .switch-ios input:checked + label {
+    color: #3a3a3a; }
+ }
+
+/* Bugfix for older Webkit, including mobile Webkit. Adapted from
+* http://css-tricks.com/webkit-sibling-bug/
+*/
+@media only screen and (-webkit-max-device-pixel-ratio: 2) and (max-device-width: 80em) {
+  .switch-light, .switch-toggle {
+    -webkit-animation: webkitSiblingBugfix infinite 1s; } }
+
+@-webkit-keyframes webkitSiblingBugfix {
+  from {
+    -webkit-transform: translate3d(0, 0, 0); }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0); } }
+
+  .large-4 {
+    width: 33.3333333333%; 
+	float:right;
+	margin-right:16px;}
+	
