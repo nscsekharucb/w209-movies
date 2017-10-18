@@ -1,0 +1,18 @@
+filmName - Name of movie
+normalizedDistributor - Name of lead distributor
+scoreRotten - % score based on all critics. Note: score is as-of the date the data was originally created; it is not updated to today's current score.
+scoreAudience - % audience score. Score is not updated to the current score.
+story - Appears to contain plot tropes.
+genre - Higher level genre classification.
+openingWeekendNumTheaters - Number of theaters showing the film on its opening weekend.
+year - Year of release.
+domesticGrossAdj - Domestic gross revenue.
+foreignGrossAdj - Foreign gross revenue.
+worldwideGrossAdj - Sum of previous two.
+budgetAdj - Purported film budget.
+openingWeekend - Domestic gross revenue for the opening weekend.
+domesticProfitability - domesticGrossAdj / budgetAdj
+worldwideProfitability - worldwideGrossAdj / budgetAdj
+domToForeignRatio - domesticGrossAdj / foreignGrossAdj
+openingWeekendGrossPerScreen - openingWeekend / openingWeekendNumTheaters
+domesticGrossInfAdj - Domestic gross adjusted by BLS inflation index.
