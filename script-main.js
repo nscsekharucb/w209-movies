@@ -1,228 +1,113 @@
 
 // document.body.style.backgroundColor = "#f7f7f7";
 
-// Set toggle flag as global
-var labelVisible = true;
+// Dynamically get the bootstrap width of a div
+var bb = document.querySelector ('#plot')
+                    .getBoundingClientRect(),
+       width = bb.right - bb.left;
 
 // Set the margins
 var margin = {top: 60, right: 100, bottom: 30, left: 80},
-  width = 850 - margin.left - margin.right,
-  height = 470 - margin.top - margin.bottom;
+  // width = 850 - margin.left - margin.right,
+  // height = 470 - margin.top - margin.bottom;
+  // width = 800,
+  height = 250;
+  // height = 970 - margin.top - margin.bottom;
 
-// Parse the month variable
-var parseMonth = d3.timeParse("%b");
-var formatMonth = d3.timeFormat("%b");
+
 
 // Set the scalers
-var x = d3.scaleTime().domain([parseMonth("Jan"),parseMonth("Dec")]).range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
+var x = d3.scaleLinear()
+    // .domain([0, max()])
+    .rangeRound([0, width]);
 
-// define the 1st line
-var coffeeShopLine = d3.line()
-    .x(function(d) { return x(d.Month); })
-    .y(function(d) { return y(+d['Coffee Shop']); });
+var y = d3.scaleBand()
+    .rangeRound([0, height])
+    .paddingInner(0.2);
 
-// define the 2nd line
-var restaurantLine = d3.line()
-    .x(function(d) { return x(d.Month); })
-    .y(function(d) { return y(d.Restaurants); });
 
-// Create the svg canvas
-var svg = d3.select("#plot")
-        .append("svg")
-          .attr("class", "graph")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-          .attr("transform","translate(" + margin.left + "," + margin.top + ")")
-          .attr("class", "svg");
+var barHeight = 20;
 
-// Import the CSV data
-d3.csv("food_transactions_2.csv", function(error, data) {
+var plot = d3.select("#plot")
+  .append("svg")
+  .attr("class", "first-plot")
+  .attr("width", width)
+  .attr("height", height);
+  // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  // .attr("transform", "translate(" + 0 + "," + margin.top + ")");
+
+// This is a subgroup that sits inside the svg above. Required so that the axes and other things don't clip.
+g = plot.append("g")
+  // .attr("width", width - margin.left - margin.right)
+  // .attr("height", height - margin.top - margin.bottom)
+  // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// Import JSON data
+d3.json("data/hollywoodStories_consol.json", function(error, data) {
   if (error) throw error;
 
-   // Format the data
-  data.forEach(function(d) {
-      d.Month = parseMonth(d.Month);
-      d['Coffee Shop'] = +d['Coffee Shop'];
-      d.Restaurants = +d.Restaurants;
-  });
+  // Rollup domestic gross rev by year, all studios
+  var rollup_data = d3.nest()
+      .key(function(d) { return d.year;})
+      .sortKeys(d3.descending)
+      .rollup(function(d) {
+          return d3.sum(d, function(g) { return g.domesticGrossAdj; });
+      }).entries(data);
 
-  // Mouseover handlers
-  function mouseover(d) {
-    var me = this;
-    d3.selectAll(".line").classed("line--hover", function() {
-      return (this === me);
-    }).classed("line--fade", function() {
-      return (this !== me);
-    });
-  }
-  
-  function mouseout(d) {
-    d3.selectAll(".line")
-      .classed("line--hover", false)
-      .classed("line--fade", false);
-  }
-  
-  // Button function
-  // Toggles the counts on and off
-  function toggleButton() {
-    svg.append;
-  }
 
   // Scale the range of the data
-  x.domain(d3.extent(data, function(d) { return d.Month; }));
-  y.domain([0, d3.max(data, function(d) { return d.Restaurants; })]);
+  // x.domain(d3.extent(rollup_data, function(d) { return d.domesticGrossAdj; }))
+  x.domain([0, d3.max(rollup_data, function(d) { return d.value; })]);
+  y.domain(rollup_data.map(function(d) { return d.key; }));
+  
+  //Add x-axis.
+  g.append("g")
+    .attr("class", "x-axis")
+    .attr("x", margin.left)
+    .attr("transform", "translate(0," + (height - 60) + ")")
+    // .attr("transform", "translate(0,30)")
+    .call(d3.axisBottom(x));
 
-  // Debug prints
-  // console.log("---------------")
-  // console.log(d3.max(data, function(d) { return d.Restaurants; }))
-  // console.log(data.map(function(item){return item.Restaurants}));
-
-  // Debug prints
-  // console.log("---------------------");
-  // console.log(data.forEach(function(d) {console.log(d.Count);}));
-
-  // Set up the x axis
-  var xaxis = svg.append("g")
-       .attr("transform", "translate(0," + height + ")")
-       .attr("class", "x axis")
-       .call(d3.axisBottom(x)
-          .ticks(d3.timeMonth)
-          .tickSize(0, 0)
-          .tickFormat(d3.timeFormat("%B"))
-          .tickSizeInner(6)
-          .tickPadding(10));
-
-  // Add the Y Axis
-   var yaxis = svg.append("g")
-       .attr("class", "y_axis")
-       .call(d3.axisLeft(y)
-          .ticks(5)
-          .tickSizeInner(0)
-          .tickPadding(6)
-          .tickSize(0, 0));
-
-  // Add a label to the y axis
-  svg.append("text")
-        .attr("class", "y_axis_label")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - 60)
-        .attr("x", 0 - (height / 2))
-        .attr("dy", "1.1em")
-        .style("text-anchor", "middle")
-        .text("Count");
-
-  // Add chart title
-  svg.append("text")
-        .attr("class", "title")
-        .attr("y", -30)
-        .attr("x", 0)
-        .text("Restaurant and Coffee Shop Visits by Month")
-        .attr("font-size", 28);
+  // Add the y-axis.
+  g.append("g")
+    .attr("class", "y-axis")
+    .attr("transform", "translate(" + margin.left + ", 0)")
+    .call(d3.axisLeft(y));
 
 
+  // Draw the bars.
+  g.selectAll("rect")
+    .data(rollup_data)
+    .enter()
+    .append("rect")
+    .attr("x", margin.left)
+    .attr("y", function(d) { return y(d.key); })
+    // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
+    // .attr("transform", "translate(50, 0)")
+    // .attr("transform", function(d, i) { return "translate(" + margin.left + "," + i * 115 + ")";})
+    .attr("height", y.bandwidth())
+    .attr("width", function(d) { return x(d.value); })
+    // .attr("height", 20)
+    .attr("fill", "blue");
 
-  // Add chart subtitle
-  svg.append("text")
-        .attr("class", "subtitle")
-        .attr("y", -10)
-        .attr("x", 0)
-        .text("2013 — 2017")
-        .attr("font-size", 18)
-        .attr("font-style", "italic");
+  // //define chart title to svg
+  // let title = plot.append("g")
+  //   .attr("class", "title");
+  // title.append("text")
+  //   .attr("x", (width/1.5))
+  //     .attr("y", 40)
+  //     .attr("text-anchor", "middle")
+  //     .style("font", "20px sans-serif")
+  //     .text("Percent of GDP Spent on Education, 2014");
 
-  // Add the restaurantLine path.
-  svg.append("path")
-      .data([data])
-      .attr("class", "line")
-      .style("stroke", "red")
-      .attr("d", restaurantLine)
-      .on("mouseover", mouseover)
-      .on("mouseout", mouseout); 
+  // //append source data to svg
+  // let source = plot.append("g")
+  //   .attr("class", "source");
+  // source.append("text")
+  //   .attr("x", 10)
+  //   .attr("y", 500)
+  //   .attr("text-anchor", "left")
+  //   .style("font", "12px monospace")
+  //   .text("Source: The World Bank");
 
-  // Add the coffeeShopLine path.
-  svg.append("path")
-      .data([data])
-      .attr("class", "line")
-      .attr("d", coffeeShopLine)
-      .on("mouseover", mouseover)
-      .on("mouseout", mouseout); 
-
-  // Helpful labels
-  svg.append("text")
-      .attr("transform", "translate("+(width+3)+","+y(data[0].Restaurants)+")")
-      .attr("class", "restaurantLine")
-      .attr("dy", ".35em")
-      .attr("text-anchor", "start")
-      .style("fill", "red")
-      .style("font-family", "sans-serif")
-      .text("Restaurants");
-
-  svg.append("text")
-      .attr("transform", "translate("+(width+3)+","+y(data[0]['Coffee Shop'])+")")
-      .attr("class", "coffeeShopLine")
-      .attr("dy", ".35em")
-      .attr("text-anchor", "start")
-      .style("fill", "steelblue")
-      .style("font-family", "sans-serif")
-      .text("Coffee Shops");
-
-  // var label = svg.selectAll(".label")
-  //     .data(function(d) { return }  )
-  //     .attr("visibility", "hidden")
-  //     .text()
-
-  // Coffee shop line labels
-  svg.append('g')
-      // .classed('labels-group', true)
-      .selectAll('text')
-      .data(data)
-      .enter()
-      .append('text')
-      .attr("id", "label-text")
-      .attr("x", function(d) { return x(d.Month);})
-      .attr("y", function(d) { return y(+d['Coffee Shop']) - 19;})
-      .text(function(d, i) {
-        return +d["Coffee Shop"];
-      })
-      .attr("font-family", "Archivo Narrow")
-      .attr("font-weight", "bolder")
-      .attr("font-size", "18px")
-      .attr("fill", "#143966")
-      .attr("visibility", "visible")
-      ;
-
-  // Restaurant line labels
-  svg.append('g')
-      // .classed('labels-group', true)
-      .selectAll('text')
-      .data(data)
-      .enter()
-      .append('text')
-      .attr("id", "label-text")
-      .attr("x", function(d) { return x(d.Month);})
-      .attr("y", function(d) { return y(+d['Restaurants']) + 50;})
-      .text(function(d, i) {
-        return +d["Restaurants"];
-      })
-      .attr("font-family", "Archivo Narrow")
-      .attr("font-weight", "bolder")
-      .attr("font-size", "18px")
-      .attr("fill", "red")
-      .attr("visibility", "visible");
-
-  // Add toggle button
-  d3.select("#plot").append("button")
-        .attr("type", "button")
-        .attr("class", "btn btn-primary btn-lg")
-        .text("Hide Counts")
-        .on("click", function() {
-          if (labelVisible) {labelVisible = false;
-            d3.selectAll("#label-text").attr("visibility", "hidden");
-            d3.selectAll(".btn").text("Show Counts");}
-          else {labelVisible = true;
-            d3.selectAll("#label-text").attr("visibility", "visible");
-            d3.selectAll(".btn").text("Hide Counts");}
-        });
-})
+  });

@@ -12,7 +12,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
   <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="script-main.js"></script>
+<!--   <script src="script-main.js"></script> -->
   
 </head>
 
@@ -46,13 +46,43 @@
       </div>
 
       <div class="row" id="plot-div" style="margin-top: 30px; padding-top: 30px; padding-bottom: 30px">
-          <div class="col-md-2"></div>
-          <div class="col-md-8" id="plot" style="text-align:center"></div>
-          <div class="col-md-2"></div>
+          <div class="col-md-1"></div>
+          <div class="col-md-10" id="plot" style="text-align:center"></div>
+          <div class="col-md-1"></div>
       </div>
 
+      <p>Placeholders for future interactive dropdowns and buttons</p>
+      <select id="inds">
+          <option value="apples" selected="selected">apples</option>
+          <option value="pears">pears</option>
+          <option value="tomatoes">tomatoes</option>
+      </select>
+      <select>
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option>
+      </select>
+
+      <div id="legendContainer" class="legendContainer">
+        <svg id="legend"></svg>
+      </div>
+      
+      <div id="showAll">
+        <input name="showAllButton"
+         type="button"
+         value="Show All"
+         onclick="showAll()" />
+      </div>
+      <div id="clearAll">
+        <input name="clearAllButton"
+         type="button"
+         value="Clear All"
+         onclick="clearAll()" />
+      </div>
       
   </div> <!-- main container-fluid -->
 
   
+  <script src="script-main.js"></script>
 </body></html>
