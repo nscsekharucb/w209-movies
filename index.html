@@ -48,6 +48,18 @@
       </div>
 
       <!-- <div class="row" id="plot-div" style="margin-top: 30px; padding-top: 30px; padding-bottom: 30px"> -->
+      
+      <!-- First dropdown -->
+      <div class="col-md-12" align=center style="margin-top: 30px; margin-bottom: 30px">
+        <select id="drop1-year" name="testselect">
+          <option value="all_years">All Years</option>
+          <option value="2013">2013</option>
+        </select>
+        <select id="drop1-studios">
+          <option value="all_studios">All Studios</option>
+        </select>
+      </div> 
+      
       <div class="row" id="plot-div" style="margin-top: 30px; margin-bottom: 30px">
           <div class="col-md-2"></div>
           <div class="col-md-8" id="plot" style="text-align:center"></div>
@@ -84,8 +96,9 @@
          onclick="clearAll()" />
       </div>
       
-  </div> <!-- main container-fluid -->
 
+
+  </div> <!-- main container-fluid -->
   
   <script src="script-main.js"></script>
 </body></html>

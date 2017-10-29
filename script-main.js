@@ -9,11 +9,12 @@ var bb = document.querySelector ('#plot')
        width = bb.right - bb.left;
 
 // Set the margins
-var margin = {top: 60, right: 100, bottom: 30, left: 80},
+var margin = {top: 60, right: 100, bottom: 30, left: 150}, // 150 left margin is okay for distributor names
   // width = 850 - margin.left - margin.right,
   // height = 470 - margin.top - margin.bottom;
   // width = 800,
-  height = 350;
+  // height = 350;
+  height = 750;
   // height = 970 - margin.top - margin.bottom;
 
 
@@ -48,14 +49,52 @@ g = plot.append("g")
 d3.json("data/hollywoodStories_consol.json", function(error, data) {
   if (error) throw error;
 
+  // // Func for returning unique values in an array
+  // function onlyUnique(value, index, self) { 
+  //     return self.indexOf(value) === index;
+  // };
+  // // console.log(data)
+  // console.log(d3.map(data, function(d) { return d.normalizedDistributor;}).keys())
+  // var distributorsList = data["normalizedDistributor"].filter(onlyUnique)
+  // console.log(distributorsList)
+
+  // Get unique list of distributors and create drop down options
+  d3.select("#drop1-studios").selectAll("option")
+      .data(d3.map(data, function(d){return d.normalizedDistributor;}).keys().sort())
+      .enter()
+      .append("option")
+      .text(function(d){return d;})
+      .attr("value", function(d){return d;});
+
+
   // Rollup domestic gross rev by year, all studios
   var rollup_data = d3.nest()
       .key(function(d) { return d.year;})
+      // .key(function(d) { return d.normalizedDistributor;})
       .sortKeys(d3.descending)
       .rollup(function(d) {
           return d3.sum(d, function(g) { return g.domesticGrossAdj; });
-      }).entries(data);
+      }).entries(data); 
 
+  // // Sorts array by value descending
+  // rollup_data.sort(function(a, b) {
+  //     return b["value"] - a["value"];
+  //     });
+
+  // Objects for dropdown 1
+  var elements = Object.keys(data[0])
+    .filter(function(d){
+        return ((d != "filmName") & (d != "scoreRotten"));
+    });
+  var selection = elements[0];
+
+  console.log(elements)
+  console.log(selection)
+
+  // // Sorts array by index descending
+  // rollup_data.sort(function(a, b) {
+  //     return b["index"] - a["index"];
+  //     });
 
   // Scale the range of the data
   // x.domain(d3.extent(rollup_data, function(d) { return d.domesticGrossAdj; }))
@@ -75,6 +114,7 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
     // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
     // .attr("transform", "translate(50, 0)")
     // .attr("transform", function(d, i) { return "translate(" + margin.left + "," + i * 115 + ")";})
+    .transition()
     .attr("height", y.bandwidth())
     .attr("width", function(d) { return x(d.value); })
     // .attr("height", 20)
@@ -125,5 +165,51 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
   //   .attr("text-anchor", "left")
   //   .style("font", "12px monospace")
   //   .text("Source: The World Bank");
+
+  // Dropdown 1 actions
+  var selector = d3.select("#drop1-studios")
+        .append("select")
+        .attr("id","dropdown")
+        .on("change", function(d){
+            selection = document.getElementById("dropdown");
+
+            y.domain([0, d3.max(data, function(d){
+          return +d[selection.value];})]);
+
+            yAxis.scale(y);
+
+            d3.selectAll(".rectangle")
+                .transition()
+                .attr("height", function(d){
+            return height - y(+d[selection.value]);
+          })
+          .attr("x", function(d, i){
+            return (width / data.length) * i ;
+          })
+          .attr("y", function(d){
+            return y(+d[selection.value]);
+          })
+                .ease("linear")
+                .select("title")
+                .text(function(d){
+                  return d.State + " : " + d[selection.value];
+                });
+        
+              d3.selectAll("g.y.axis")
+                .transition()
+                .call(yAxis);
+
+           });
+
+  // // Dropdown 1 selection options
+  // selector.selectAll("option")
+  //     .data(elements) //change
+  //     .enter().append("option")
+  //     .attr("value", function(d){
+  //       return d;
+  //     })
+  //     .text(function(d){
+  //       return d;
+  //     })
 
   });
