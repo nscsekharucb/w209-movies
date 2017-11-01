@@ -1,62 +1,141 @@
 
 // document.body.style.backgroundColor = "#f7f7f7";
 
+var my_viz_lib = my_viz_lib || {};
+
+my_viz_lib.barPlot = function() {
+
+  // Dynamically get the bootstrap width of a div
+  var bb = document.querySelector ('#plot')
+      .getBoundingClientRect(),
+      width = bb.right - bb.left;
 
 
-// Dynamically get the bootstrap width of a div
-var bb = document.querySelector ('#plot')
-                    .getBoundingClientRect(),
-       width = bb.right - bb.left;
-
-// Set the margins
-var margin = {top: 60, right: 100, bottom: 30, left: 150}, // 150 left margin is okay for distributor names
-  // width = 850 - margin.left - margin.right,
-  // height = 470 - margin.top - margin.bottom;
-  // width = 800,
-  // height = 350;
-  height = 750;
-  // height = 970 - margin.top - margin.bottom;
+  // Set the margins
+  var margin = {top: 60, right: 100, bottom: 30, left: 150}, // 150 left margin is okay for distributor names
+      height = 750;
 
 
-
-// Set the scalers
-var x = d3.scaleLinear()
+  // Set the scalers
+  var x = d3.scaleLinear()
     // .domain([0, max()])
     .rangeRound([0, width - margin.left]);
 
-var y = d3.scaleBand()
+  var y = d3.scaleBand()
     .rangeRound([0, height - margin.bottom - margin.top])
     .paddingInner(0.2);
 
+  var setYAxis = function(data)  {
+    y = d3.scaleBand().rangeRound([0, height - margin.bottom - margin.top]).paddingInner(0.2)
+      .domain(data.map(function(d) { return d.key; }))
+  }
 
-var barHeight = 20;
+  var barHeight = 20;
 
-var plot = d3.select("#plot")
-  .append("svg")
-  .attr("class", "first-plot")
-  .attr("width", width)
-  .attr("height", height);
-  // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  // .attr("transform", "translate(" + 0 + "," + margin.top + ")");
+  var plot = d3.select("#plot")
+    .append("svg")
+    .attr("class", "first-plot")
+    .attr("width", width)
+    .attr("height", height);
 
-// This is a subgroup that sits inside the svg above. Required so that the axes and other things don't clip.
-g = plot.append("g")
-  // .attr("width", width - margin.left - margin.right)
-  // .attr("height", height - margin.top - margin.bottom)
-  // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+// May not need this
+  // // This is a subgroup that sits inside the svg above. Required so that the axes and other things don't clip.
+  // g = plot.append("g")
+
+
+  // Generic data function
+  var data = [];
+  var data_ = function(_) {
+    var that = this;
+    if (!arguments.length) return data;
+    data = _;
+    return that;
+  }
+
+  // // Get unique list of distributors and create drop down options
+  // d3.select("#drop1-studios").selectAll("option")
+  //     .data(d3.map(data, function(d){return d.normalizedDistributor;}).keys().sort())
+  //     .enter()
+  //     .append("option")
+  //     .text(function(d){return d;})
+  //     .attr("value", function(d){return d;});
+
+  var plot_ = function() {
+
+  // Scale the range of the data
+  x.domain([0, d3.max(data, function(d) { return d.value; })]);
+  y.domain(data.map(function(d) { return d.key; }));
+
+  bar = plot
+    .selectAll("rect")
+    .data(data)
+    // .enter()
+    // .append("rect")
+    // .attr("x", margin.left)
+    // .attr("y", function(d) { return y(d.key) + margin.top; })
+    // .transition()
+    // .attr("height", y.bandwidth())
+    // // .attr("height", 50)
+    // .attr("width", function(d) { return x(d.value); })
+    // .attr("fill", "#3A4B6A");
+
+  bar.enter().append("rect")
+    .attr("x", margin.left)
+    .attr("y", function(d) { return y(d.key) + margin.top; })
+    .transition()
+    .attr("height", y.bandwidth())
+    // .attr("height", 50)
+    .attr("width", function(d) { return x(d.value); })
+    .attr("fill", "#3A4B6A");
+
+  bar.exit().remove()
+
+  //Add x-axis.
+  var xAxis = d3.axisBottom(x);
+  plot.append("g")
+    .attr("class", "x-axis")
+    .attr("x", margin.left)
+    .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
+    // .attr("transform", "translate(0,30)")
+    .call(xAxis.tickFormat(d3.format("$,.0s")));
+
+  // Add the y-axis.
+  var yAxis = d3.axisLeft(y);
+  plot.append("g")
+    .attr("class", "y-axis")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .call(yAxis);
+
+  //Create title 
+  plot.append("text")
+    .attr("x", width / 2 )
+    .attr("y", margin.top / 2 )
+    .attr("class", "title")
+    .style("text-anchor", "middle")
+    .text("Total Domestic Gross Revenue by Year");
+    // .text(function(d) { if (year != "all_years") { return '"' + year + '"'}});
+
+  };
+
+
+  var public = {
+    "plot": plot_,
+    "data": data_,
+    "setYAxis": setYAxis,
+    // "loglog": setLogScale, //change
+    // "highlight": highlight, //change
+    // "unhighlight" : unhighlight //change
+  };
+  
+  return public;
+
+};
+
+
 
 // Import JSON data
 d3.json("data/hollywoodStories_consol.json", function(error, data) {
   if (error) throw error;
-
-  // // Func for returning unique values in an array
-  // function onlyUnique(value, index, self) { 
-  //     return self.indexOf(value) === index;
-  // };
-  // // console.log(data)
-  // console.log(d3.map(data, function(d) { return d.normalizedDistributor;}).keys())
-  // var distributorsList = data["normalizedDistributor"].filter(onlyUnique)
-  // console.log(distributorsList)
 
   // Get unique list of distributors and create drop down options
   d3.select("#drop1-studios").selectAll("option")
@@ -66,9 +145,194 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
       .text(function(d){return d;})
       .attr("value", function(d){return d;});
 
+  // Get unique list of years and create drop down options
+  d3.select("#drop1-year").selectAll("option")
+      .data(d3.map(data, function(d){return d.year;}).keys().sort(function(a, b){return b-a})) // Descending sort
+      .enter()
+      .append("option")
+      .text(function(d){return d;})
+      .attr("value", function(d){return d;});
+
+  // console.log(yearSelector)
+
+
+  // Change plot based on year selected
+  d3.select("#drop1-year").on("change", function(){
+      var selectionYear = document.getElementById("drop1-year");
+      var selectionStudio = document.getElementById("drop1-studios")
+      // console.log(selection.value);
+      if (selectionYear.value != "all_years" && selectionStudio.value == "all_studios") { // One year, all studios
+
+        // filter data by year (selection.value)
+        var filtered = data.filter(function(d) {
+            return d.year == selectionYear.value;
+        })
+
+        // change data to rollup by distributor
+        rollup_data = d3.nest()
+          .key(function(d) { return d.normalizedDistributor;})
+          .sortKeys(d3.ascending)
+          .rollup(function(d) {
+              return d3.sum(d, function(g) { return g.domesticGrossAdj; });
+          }).entries(filtered); 
+        console.log(rollup_data)
+
+        // Sort by value descending
+        rollup_data.sort(function(a, b) {
+            return b["value"] - a["value"];
+            });
+
+        // Remap y-axis domain
+        // console.log(y)
+        // console.log(mainBarPlot.plot().y)
+        // mainBarPlot.setYAxis(rollup_data);
+
+        // var svg = d3.select(".first-plot");
+        // // svg.selectAll("*").remove();
+        // // svg.remove();
+        d3.selectAll("rect").remove(); // this is a workaround that will kill other rects on the page
+        d3.selectAll(".x-axis").remove();
+        d3.selectAll(".y-axis").remove();
+        d3.selectAll(".title").remove();
+        mainBarPlot.data(rollup_data);
+        mainBarPlot.plot();
+        d3.select(".title").text(function() {return "Top Studio Domestic Gross Revenue for " + selectionYear.value})
+      } else if (selectionYear.value != "all_years" && selectionStudio.value != "all_studios") { // One studio, one year
+        // filter data by year (selection.value)
+        var filtered = data.filter(function(d) {
+            return d.year == selectionYear.value && d.normalizedDistributor == selectionStudio.value;
+        })
+
+        // change data to rollup by distributor
+        rollup_data = d3.nest()
+          .key(function(d) { return d.filmName;})
+          .sortKeys(d3.ascending)
+          .rollup(function(d) {
+              return d3.sum(d, function(g) { return g.domesticGrossAdj; });
+          }).entries(filtered); 
+        console.log(rollup_data)
+
+        // Sort by value descending
+        rollup_data.sort(function(a, b) {
+            return b["value"] - a["value"];
+            });
+
+        d3.selectAll("rect").remove();
+        d3.selectAll(".x-axis").remove();
+        d3.selectAll(".y-axis").remove();
+        d3.selectAll(".title").remove();
+        mainBarPlot.data(rollup_data);
+        mainBarPlot.plot();
+        d3.select(".title").text(function() {return selectionStudio.value + "'s Top Film Domestic Gross Revenue for " + selectionYear.value})
+      } else {
+        d3.selectAll("rect").remove(); // this is a workaround that will kill other rects on the page
+        d3.selectAll(".x-axis").remove();
+        d3.selectAll(".y-axis").remove();
+        d3.selectAll(".title").remove();
+        mainBarPlot.data(rollupDataYears);
+        mainBarPlot.plot();
+        d3.select(".title").text(function() {return "Total Domestic Gross Revenue by Year"})
+      }
+
+  });
+
+  // Change plot based on studio selected
+  d3.select("#drop1-studios").on("change", function(){
+      var selectionYear = document.getElementById("drop1-year");
+      var selectionStudio = document.getElementById("drop1-studios")
+      if (selectionYear.value != "all_years" && selectionStudio.value == "all_studios") {
+
+        // filter data by year (selection.value)
+        var filtered = data.filter(function(d) {
+            return d.year == selectionYear.value;
+        })
+
+        // change data to rollup by distributor
+        rollup_data = d3.nest()
+          .key(function(d) { return d.normalizedDistributor;})
+          .sortKeys(d3.ascending)
+          .rollup(function(d) {
+              return d3.sum(d, function(g) { return g.domesticGrossAdj; });
+          }).entries(filtered); 
+        console.log(rollup_data)
+
+        // Sort by value descending
+        rollup_data.sort(function(a, b) {
+            return b["value"] - a["value"];
+            });
+
+        d3.selectAll("rect").remove(); // this is a workaround that will kill other rects on the page
+        d3.selectAll(".x-axis").remove();
+        d3.selectAll(".y-axis").remove();
+        d3.selectAll(".title").remove();
+        mainBarPlot.data(rollup_data);
+        mainBarPlot.plot();
+        d3.select(".title").text(function() {return "Top Studio Domestic Gross Revenue for " + selectionYear.value})
+      } else if (selectionYear.value == "all_years" && selectionStudio.value != "all_studios") {  // One studio for all years
+        // unfilter data
+        // filter data by year (selection.value)
+        var filtered = data.filter(function(d) {
+            return d.normalizedDistributor == selectionStudio.value;
+        })
+        console.log(filtered);
+        // Rollup by year
+        var rollup_data = d3.nest()
+            .key(function(d) { return d.year;})
+            // .key(function(d) { return d.normalizedDistributor;})
+            .sortKeys(d3.descending)
+            .rollup(function(d) {
+                return d3.sum(d, function(g) { return g.domesticGrossAdj; });
+            }).entries(filtered); 
+
+        d3.selectAll("rect").remove(); // this is a workaround that will kill other rects on the page
+        d3.selectAll(".x-axis").remove();
+        d3.selectAll(".y-axis").remove();
+        d3.selectAll(".title").remove();
+        mainBarPlot.data(rollup_data);
+        mainBarPlot.plot();
+        d3.select(".title").text(function() {return selectionStudio.value + "Domestic Gross Revenue by Year"})
+        // change data to rollup by year
+      } else if (selectionYear.value == "all_years" && selectionStudio.value == "all_studios") { // All studios, all years
+        d3.selectAll("rect").remove(); // this is a workaround that will kill other rects on the page
+        d3.selectAll(".x-axis").remove();
+        d3.selectAll(".y-axis").remove();
+        d3.selectAll(".title").remove();
+        mainBarPlot.data(rollupDataYears);
+        mainBarPlot.plot();
+        d3.select(".title").text(function() {return "Total Domestic Gross Revenue by Year"})
+      } else if (selectionYear.value != "all_years" && selectionStudio.value != "all_studios") { // One studio, one year
+        // filter data by year (selection.value)
+        var filtered = data.filter(function(d) {
+            return d.year == selectionYear.value && d.normalizedDistributor == selectionStudio.value;
+        })
+
+        // change data to rollup by distributor
+        rollup_data = d3.nest()
+          .key(function(d) { return d.filmName;})
+          .sortKeys(d3.ascending)
+          .rollup(function(d) {
+              return d3.sum(d, function(g) { return g.domesticGrossAdj; });
+          }).entries(filtered); 
+        console.log(rollup_data)
+
+        // Sort by value descending
+        rollup_data.sort(function(a, b) {
+            return b["value"] - a["value"];
+            });
+
+        d3.selectAll("rect").remove();
+        d3.selectAll(".x-axis").remove();
+        d3.selectAll(".y-axis").remove();
+        d3.selectAll(".title").remove();
+        mainBarPlot.data(rollup_data);
+        mainBarPlot.plot();
+        d3.select(".title").text(function() {return selectionStudio.value + "'s Top Film Domestic Gross Revenue for " + selectionYear.value})
+      }
+
+  });
 
   // Rollup domestic gross rev by year, all studios
-  var rollup_data = d3.nest()
+  var rollupDataYears = d3.nest()
       .key(function(d) { return d.year;})
       // .key(function(d) { return d.normalizedDistributor;})
       .sortKeys(d3.descending)
@@ -81,135 +345,17 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
   //     return b["value"] - a["value"];
   //     });
 
-  // Objects for dropdown 1
-  var elements = Object.keys(data[0])
+  // Objects for dropdown 1 Years
+  var elementsYears = Object.keys(data[0])
     .filter(function(d){
         return ((d != "filmName") & (d != "scoreRotten"));
     });
-  var selection = elements[0];
-
-  console.log(elements)
-  console.log(selection)
-
-  // // Sorts array by index descending
-  // rollup_data.sort(function(a, b) {
-  //     return b["index"] - a["index"];
-  //     });
-
-  // Scale the range of the data
-  // x.domain(d3.extent(rollup_data, function(d) { return d.domesticGrossAdj; }))
-  x.domain([0, d3.max(rollup_data, function(d) { return d.value; })]);
-  y.domain(rollup_data.map(function(d) { return d.key; }));
-  
+  var selection = elementsYears[0];
 
 
+  mainBarPlot = my_viz_lib.barPlot();
+  mainBarPlot.data(rollupDataYears);
+  mainBarPlot.plot();
 
-  // Draw the bars.
-  g.selectAll("rect")
-    .data(rollup_data)
-    .enter()
-    .append("rect")
-    .attr("x", margin.left)
-    .attr("y", function(d) { return y(d.key) + margin.top; })
-    // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
-    // .attr("transform", "translate(50, 0)")
-    // .attr("transform", function(d, i) { return "translate(" + margin.left + "," + i * 115 + ")";})
-    .transition()
-    .attr("height", y.bandwidth())
-    .attr("width", function(d) { return x(d.value); })
-    // .attr("height", 20)
-    .attr("fill", "#3A4B6A");
-
-  //Add x-axis.
-  g.append("g")
-    .attr("class", "x-axis")
-    .attr("x", margin.left)
-    .attr("transform", "translate(" + margin.left + "," + (height - margin.bottom) + ")")
-    // .attr("transform", "translate(0,30)")
-    .call(d3.axisBottom(x)
-        .tickFormat(d3.format("$,.0s")));
-
-  // Add the y-axis.
-  g.append("g")
-    .attr("class", "y-axis")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    .call(d3.axisLeft(y));
-
-  // g.append("g")
-  //   .attr("class", "title")
-  //   .text()
-
-  //Create title 
-  g.append("text")
-    .attr("x", width / 2 )
-    .attr("y", margin.top / 2 )
-    .attr("class", "title")
-    .style("text-anchor", "middle")
-    .text("Total Domestic Gross Revenue by Year");
-  // //define chart title to svg
-  // let title = plot.append("g")
-  //   .attr("class", "title");
-  // title.append("text")
-  //   .attr("x", (width/1.5))
-  //     .attr("y", 40)
-  //     .attr("text-anchor", "middle")
-  //     .style("font", "20px sans-serif")
-  //     .text("Percent of GDP Spent on Education, 2014");
-
-  // //append source data to svg
-  // let source = plot.append("g")
-  //   .attr("class", "source");
-  // source.append("text")
-  //   .attr("x", 10)
-  //   .attr("y", 500)
-  //   .attr("text-anchor", "left")
-  //   .style("font", "12px monospace")
-  //   .text("Source: The World Bank");
-
-  // Dropdown 1 actions
-  var selector = d3.select("#drop1-studios")
-        .append("select")
-        .attr("id","dropdown")
-        .on("change", function(d){
-            selection = document.getElementById("dropdown");
-
-            y.domain([0, d3.max(data, function(d){
-          return +d[selection.value];})]);
-
-            yAxis.scale(y);
-
-            d3.selectAll(".rectangle")
-                .transition()
-                .attr("height", function(d){
-            return height - y(+d[selection.value]);
-          })
-          .attr("x", function(d, i){
-            return (width / data.length) * i ;
-          })
-          .attr("y", function(d){
-            return y(+d[selection.value]);
-          })
-                .ease("linear")
-                .select("title")
-                .text(function(d){
-                  return d.State + " : " + d[selection.value];
-                });
-        
-              d3.selectAll("g.y.axis")
-                .transition()
-                .call(yAxis);
-
-           });
-
-  // // Dropdown 1 selection options
-  // selector.selectAll("option")
-  //     .data(elements) //change
-  //     .enter().append("option")
-  //     .attr("value", function(d){
-  //       return d;
-  //     })
-  //     .text(function(d){
-  //       return d;
-  //     })
 
   });
