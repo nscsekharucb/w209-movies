@@ -138,7 +138,7 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
   if (error) throw error;
 
   // Get unique list of distributors and create drop down options
-  d3.select("#drop1-studios").selectAll("option")
+  d3.select("#drop1-studios").selectAll("option:not(#default)")
       .data(d3.map(data, function(d){return d.normalizedDistributor;}).keys().sort())
       .enter()
       .append("option")
@@ -146,7 +146,7 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
       .attr("value", function(d){return d;});
 
   // Get unique list of years and create drop down options
-  d3.select("#drop1-year").selectAll("option")
+  d3.select("#drop1-year").selectAll("option:not(#default)")
       .data(d3.map(data, function(d){return d.year;}).keys().sort(function(a, b){return b-a})) // Descending sort
       .enter()
       .append("option")
@@ -175,7 +175,7 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
           .rollup(function(d) {
               return d3.sum(d, function(g) { return g.domesticGrossAdj; });
           }).entries(filtered); 
-        console.log(rollup_data)
+
 
         // Sort by value descending
         rollup_data.sort(function(a, b) {
@@ -210,7 +210,7 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
           .rollup(function(d) {
               return d3.sum(d, function(g) { return g.domesticGrossAdj; });
           }).entries(filtered); 
-        console.log(rollup_data)
+
 
         // Sort by value descending
         rollup_data.sort(function(a, b) {
@@ -224,6 +224,28 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
         mainBarPlot.data(rollup_data);
         mainBarPlot.plot();
         d3.select(".title").text(function() {return selectionStudio.value + "'s Top Film Domestic Gross Revenue for " + selectionYear.value})
+      } else if (selectionYear.value == "all_years" && selectionStudio.value != "all_studios") { // all years, one studio
+        // filter data by year (selection.value)
+        var filtered = data.filter(function(d) {
+            return d.normalizedDistributor == selectionStudio.value;
+        })
+
+        // Rollup by year
+        var rollup_data = d3.nest()
+            .key(function(d) { return d.year;})
+            // .key(function(d) { return d.normalizedDistributor;})
+            .sortKeys(d3.descending)
+            .rollup(function(d) {
+                return d3.sum(d, function(g) { return g.domesticGrossAdj; });
+            }).entries(filtered); 
+
+        d3.selectAll("rect").remove(); // this is a workaround that will kill other rects on the page
+        d3.selectAll(".x-axis").remove();
+        d3.selectAll(".y-axis").remove();
+        d3.selectAll(".title").remove();
+        mainBarPlot.data(rollup_data);
+        mainBarPlot.plot();
+        d3.select(".title").text(function() {return selectionStudio.value + "Domestic Gross Revenue by Year"})
       } else {
         d3.selectAll("rect").remove(); // this is a workaround that will kill other rects on the page
         d3.selectAll(".x-axis").remove();
@@ -240,7 +262,7 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
   d3.select("#drop1-studios").on("change", function(){
       var selectionYear = document.getElementById("drop1-year");
       var selectionStudio = document.getElementById("drop1-studios")
-      if (selectionYear.value != "all_years" && selectionStudio.value == "all_studios") {
+      if (selectionYear.value != "all_years" && selectionStudio.value == "all_studios") { // one year, all studios
 
         // filter data by year (selection.value)
         var filtered = data.filter(function(d) {
@@ -254,7 +276,7 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
           .rollup(function(d) {
               return d3.sum(d, function(g) { return g.domesticGrossAdj; });
           }).entries(filtered); 
-        console.log(rollup_data)
+
 
         // Sort by value descending
         rollup_data.sort(function(a, b) {
@@ -269,12 +291,11 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
         mainBarPlot.plot();
         d3.select(".title").text(function() {return "Top Studio Domestic Gross Revenue for " + selectionYear.value})
       } else if (selectionYear.value == "all_years" && selectionStudio.value != "all_studios") {  // One studio for all years
-        // unfilter data
         // filter data by year (selection.value)
         var filtered = data.filter(function(d) {
             return d.normalizedDistributor == selectionStudio.value;
         })
-        console.log(filtered);
+
         // Rollup by year
         var rollup_data = d3.nest()
             .key(function(d) { return d.year;})
@@ -313,7 +334,7 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
           .rollup(function(d) {
               return d3.sum(d, function(g) { return g.domesticGrossAdj; });
           }).entries(filtered); 
-        console.log(rollup_data)
+
 
         // Sort by value descending
         rollup_data.sort(function(a, b) {
@@ -327,8 +348,28 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
         mainBarPlot.data(rollup_data);
         mainBarPlot.plot();
         d3.select(".title").text(function() {return selectionStudio.value + "'s Top Film Domestic Gross Revenue for " + selectionYear.value})
-      }
+      } else if (selectionYear.value == "all_years" && selectionStudio.value != "all_studios") { // One studio, all years
+        // filter data by year (selection.value)
+        var filtered = data.filter(function(d) {
+            return d.normalizedDistributor == selectionStudio.value;
+        })
 
+        // Rollup by year
+        var rollup_data = d3.nest()
+            .key(function(d) { return d.year;})
+            // .key(function(d) { return d.normalizedDistributor;})
+            .sortKeys(d3.descending)
+            .rollup(function(d) {
+                return d3.sum(d, function(g) { return g.domesticGrossAdj; });
+            }).entries(filtered); 
+
+        d3.selectAll("rect").remove(); // this is a workaround that will kill other rects on the page
+        d3.selectAll(".x-axis").remove();
+        d3.selectAll(".y-axis").remove();
+        d3.selectAll(".title").remove();
+        mainBarPlot.data(rollup_data);
+        mainBarPlot.plot();
+      }
   });
 
   // Rollup domestic gross rev by year, all studios
@@ -356,6 +397,7 @@ d3.json("data/hollywoodStories_consol.json", function(error, data) {
   mainBarPlot = my_viz_lib.barPlot();
   mainBarPlot.data(rollupDataYears);
   mainBarPlot.plot();
+
 
 
   });
