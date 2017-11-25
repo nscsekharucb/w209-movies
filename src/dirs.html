@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html >
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+    <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+    <title>Directors and Profitability</title>
+
+    <style>
+
+        body { font: 12px Arial;}
+
+        path {
+            stroke: steelblue;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: grey;
+            stroke-width: 1;
+            shape-rendering: crispEdges;
+        }
+
+    </style>
+
+    <head>
+        <meta charset="utf-8">
+        <h1>Directors and Movie Profitability</h1>
+    </head>
+
+<!--
+    <div id="legend">
+        <h3>Filter</h3>
+        <div class="input-group" id="filters">
+            <label>
+                <input type="radio" name="filter" value="all" checked="checked"> All days</label>
+            <br />
+            <label>
+                <input type="radio" name="filter" value="Active"> Active Days</label>
+            <br />
+            <label>
+                <input type="radio" name="filter" value="Lazy"> Lazy Days</label>
+            <br />
+        </div>
+    </div>
+-->
+
+</head>
+
+<body translate="no" >
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js'></script>
+<script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+
+<script >
+
+    var filmNames = new Array();
+    var dirNames = new Array();
+    var actorNames = new Array();
+    var openingWkndGross = new Array();
+    d3.csv("hollywoodStories_consol.csv", function(data) {
+        movieData = data;
+        for (var i =0; i < 10; i++) {
+            filmNames[i] = data[i].filmName;
+            dirNames[i] = data[i].Director;
+            actorNames[i] = data[i]['Lead Actor']
+            openingWkndGross[i] = Math.round(data[i].openingWeekendGrossPerScreen);
+        }
+    });
+
+    // Set the dimensions of the canvas / graph
+    var margin = {top: 20, right: 20, bottom: 50, left: 70};
+    var width = 1200 - margin.left - margin.right;
+    var height = 800 - margin.top - margin.bottom;
+
+    // Set the ranges
+    var x = d3.scaleTime().range([0, width]);
+    var y = d3.scaleLinear().range([height, 0]);
+
+    // Define the axes
+    var xAxis = d3.axisBottom().scale(x);
+    var yAxis = d3.axisLeft().scale(y);
+
+    // Add the svg canvas
+    var svg = d3.select("body")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    // Scale the range of the data
+    //x.domain(dirNames.length());
+    //y.domain([2000, d3.max(openingWkndGross, function(d, i) { return d[i]; })]);
+
+    console.log(actorNames);
+    debugger
+
+</script>
+
+</body>
+</html>
+ 
