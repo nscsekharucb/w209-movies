@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html >
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+    <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+    <title>Movie scores and Profitability</title>
+
+    <style>
+
+    .bar {
+        fill: steelblue;
+    }
+
+    .bar:hover {
+        fill: brown;
+    }
+
+    .axis--x path {
+        display: none;
+    }
+
+
+</style>
+
+<head>
+    <meta charset="utf-8">
+    <h1>Movie Scores and Profitability</h1>
+</head>
+
+<!--
+    <div id="legend">
+        <h3>Filter</h3>
+        <div class="input-group" id="filters">
+            <label>
+                <input type="radio" name="filter" value="all" checked="checked"> All days</label>
+            <br />
+            <label>
+                <input type="radio" name="filter" value="Active"> Active Days</label>
+            <br />
+            <label>
+                <input type="radio" name="filter" value="Lazy"> Lazy Days</label>
+            <br />
+        </div>
+    </div>
+-->
+
+</head>
+
+<body translate="no" >
+
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+
+    <script >
+
+        var movieData = {}
+
+        d3.csv("hollywoodStories_consol.csv", function(data) {
+            movieData = data.map(function(d) {
+                return {
+                    filmName : d.filmName,
+                    rottenScore : Number(d.scoreRotten),
+                    audienceScore : Number(d.scoreAudience),
+                    openingWkndGross : +Math.round(d.openingWeekendGrossPerScreen * 100)/100,
+                    domesticProfitability : +Math.round(d.domesticProfitability * 100)/100
+                };
+            });
+            profitabilityPlot(movieData.slice(0,500));
+            rottenScorePlot(movieData.slice(0,500));
+
+        });
+
+    var profitabilityPlot = function(data) {
+        // Set the dimensions of the canvas / graph
+        var margin = {top: 50, right: 50, bottom: 70, left: 70};
+        var width = 6000 - margin.left - margin.right;
+        var height = 400 - margin.top - margin.bottom;
+
+        var max = d3.max(data, function(d)
+        {
+            return d.rottenScore;
+        })
+
+        // Set the ranges
+        var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+        y = d3.scaleLinear().rangeRound([height, 0]);
+
+        var lineRotten = d3.line()
+            .x(function(d) { return x(d.filmName); })
+            .y(function(d) { return y(d.rottenScore); });
+
+        var lineAudience = d3.line()
+            .x(function(d) { return x(d.filmName); })
+            .y(function(d) { return y(d.audienceScore); });
+
+        x.domain(data.map(function(d) { return d.filmName; }));
+        y.domain([0, d3.max(data, function(d) { return d.rottenScore; })]);
+
+        // Define the axes
+        var xAxis = d3.axisBottom().scale(x);
+        var yAxis = d3.axisLeft().scale(y);
+
+        // Add the svg canvas
+        var svg = d3.select("body")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+
+        var g = svg.append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+        g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .attr("y", 0)
+        .attr("x", 6)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("text-anchor", "start");
+
+
+        g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(10, "%"))
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("text-anchor", "end")
+        .text("Opening Weekend Gross per screen");
+
+        g.append("path")
+              .datum(data)
+              .attr("fill", "none")
+              .attr("stroke", "steelblue")
+              .attr("stroke-linejoin", "round")
+              .attr("stroke-linecap", "round")
+              .attr("stroke-width", 1.5)
+              .attr("d", lineRotten);
+
+        g.append("path")
+              .datum(data)
+              .attr("fill", "none")
+              .attr("stroke", "green")
+              .attr("stroke-linejoin", "round")
+              .attr("stroke-linecap", "round")
+              .attr("stroke-width", 1.5)
+              .attr("d", lineAudience);
+
+        g.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function (d) {
+            return x(d.filmName);
+        })
+        .attr("y", function (d) {
+            return y(d.domesticProfitability);
+        })
+        .attr("color", "green")
+        .attr("width", x.bandwidth())
+        .attr("height", function (d) {
+            return height - y(d.domesticProfitability);
+        });
+
+        debugger
+    }
+
+    var rottenScorePlot = function(data) {
+        // Set the dimensions of the canvas / graph
+        var margin = {top: 50, right: 50, bottom: 70, left: 70};
+        var width = 6000 - margin.left - margin.right;
+        var height = 400 - margin.top - margin.bottom;
+
+        var max = d3.max(data, function(d)
+        {
+            return d.domesticProfitability;
+        })
+
+        // Set the ranges
+        var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+        y = d3.scaleLinear().rangeRound([height, 0]);
+
+        x.domain(data.map(function(d) { return d.filmName; }));
+        y.domain([0, d3.max(data, function(d) { return d.domesticProfitability; })]);
+
+        // Define the axes
+        var xAxis = d3.axisBottom().scale(x);
+        var yAxis = d3.axisLeft().scale(y);
+
+        // Add the svg canvas
+        var svg = d3.select("body")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+
+        var g = svg.append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+        g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .attr("y", 0)
+        .attr("x", 6)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("text-anchor", "start");
+
+
+        g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(10, "%"))
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("text-anchor", "end")
+        .text("Opening Weekend Gross per screen");
+
+        g.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function (d) {
+            return x(d.filmName);
+        })
+        .attr("y", function (d) {
+            return y(d.domesticProfitability);
+        })
+        .attr("color", "green")
+        .attr("width", x.bandwidth())
+        .attr("height", function (d) {
+            return height - y(d.domesticProfitability);
+        });
+
+        debugger
+    }
+
+    </script>
+
+</body>
+</html>

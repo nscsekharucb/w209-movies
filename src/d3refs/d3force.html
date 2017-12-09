@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>US Federal Budget</title>
+</head>
+<body>
+<h2>US federal budget</h2>
+<div if = "budget"></div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js'></script>
+
+<script>
+    var width = 600,
+        height = 600
+
+    svg = d3.select(svg = "#budget").append("svg").attr("width",width).attr("height", height);
+
+    function preprocessing(row) {
+        if (row["2017"] == "0") return null;
+        row["2017"] = +row["2017"].replace(new RegExp(",", "g"), "");
+        return row;
+    }
+
+    d3.csv("outlays.csv", preprocessing, function(err,data){
+        if (err) throwerr;
+        console.log(data);
+
+        var nestedData = d3.nest()
+            .key(function(d) { return d
+            .key(function(d))})
+    })
+</script>
+</body>
+</html>
