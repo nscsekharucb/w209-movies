@@ -10,28 +10,25 @@
 
     <style>
 
-        body { font: 12px Arial;}
+    .bar {
+        fill: steelblue;
+    }
 
-        path {
-            stroke: steelblue;
-            stroke-width: 2;
-            fill: none;
-        }
+    .bar:hover {
+        fill: brown;
+    }
 
-        .axis path,
-        .axis line {
-            fill: none;
-            stroke: grey;
-            stroke-width: 1;
-            shape-rendering: crispEdges;
-        }
+    .axis--x path {
+        display: none;
+    }
 
-    </style>
 
-    <head>
-        <meta charset="utf-8">
-        <h1>Directors and Movie Profitability</h1>
-    </head>
+</style>
+
+<head>
+    <meta charset="utf-8">
+    <h1>Directors and Movie Profitability</h1>
+</head>
 
 <!--
     <div id="legend">
@@ -55,56 +52,186 @@
 <body translate="no" >
 
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js'></script>
-<script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
 
-<script >
+    <script >
 
-    var filmNames = new Array();
-    var dirNames = new Array();
-    var actorNames = new Array();
-    var openingWkndGross = new Array();
+    var movieData = {}
+
     d3.csv("hollywoodStories_consol.csv", function(data) {
-        movieData = data;
-        for (var i =0; i < 10; i++) {
-            filmNames[i] = data[i].filmName;
-            dirNames[i] = data[i].Director;
-            actorNames[i] = data[i]['Lead Actor']
-            openingWkndGross[i] = Math.round(data[i].openingWeekendGrossPerScreen);
-        }
+        movieData = data.map(function(d) {
+            return {
+                filmName : d.filmName,
+                dirNames : d.Director,
+                actorNames : d['Lead Actor'],
+                openingWkndGross : +Math.round(d.openingWeekendGrossPerScreen * 100)/100,
+                domesticProfitability : +Math.round(d.domesticProfitability * 100)/100
+            };
+        });
+        movieProfitBars(movieData.slice(0,800));
+        movieOpeningBars(movieData.slice(0,800));
     });
 
-    // Set the dimensions of the canvas / graph
-    var margin = {top: 20, right: 20, bottom: 50, left: 70};
-    var width = 1200 - margin.left - margin.right;
-    var height = 800 - margin.top - margin.bottom;
+    var movieProfitBars = function(data) {
+        // Set the dimensions of the canvas / graph
+        var margin = {top: 20, right: 20, bottom: 50, left: 70};
+        var width = 10000 - margin.left - margin.right;
+        var height = 400 - margin.top - margin.bottom;
 
-    // Set the ranges
-    var x = d3.scaleTime().range([0, width]);
-    var y = d3.scaleLinear().range([height, 0]);
+        var max = d3.max(data, function(d)
+        {
+            return d.domesticProfitability;
+        })
 
-    // Define the axes
-    var xAxis = d3.axisBottom().scale(x);
-    var yAxis = d3.axisLeft().scale(y);
+        // Set the ranges
+        var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+        //y = d3.scaleLog().domain([1, 1000]).range([0, height]);
+        y = d3.scaleLinear().rangeRound([height, 0]);
 
-    // Add the svg canvas
-    var svg = d3.select("body")
+        x.domain(data.map(function(d) { return d.dirNames; }));
+        y.domain([0, d3.max(data, function(d) { return d.domesticProfitability; })]);
+
+        // Define the axes
+        var xAxis = d3.axisBottom().scale(x);
+        var yAxis = d3.axisLeft().scale(y);
+
+        // toolTip
+        var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+
+        // Add the svg canvas
+        var svg = d3.select("body")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
+        .attr("height", height + margin.top + margin.bottom);
+
+        var g = svg.append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-    // Scale the range of the data
-    //x.domain(dirNames.length());
-    //y.domain([2000, d3.max(openingWkndGross, function(d, i) { return d[i]; })]);
+        g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .attr("y", 0)
+        .attr("x", 6)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("text-anchor", "start");
 
-    console.log(actorNames);
-    debugger
+
+        g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(10, "%"))
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("text-anchor", "end")
+        .text("Opening Weekend Gross per screen");
+
+        g.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function (d) {
+            return x(d.dirNames);
+        })
+        .attr("y", function (d) {
+            return y(d.domesticProfitability);
+        })
+        // .on("mousemove", function(d){
+        //     tooltip
+        //     //.style("left", d3.event.pageX - 50 + "px")
+        //     //.style("top", d3.event.pageY - 70 + "px")
+        //     .style("display", "inline-block")
+        //     .html((d.filmName) + "<br>" + (d.dirNames));
+        // })
+        //.on("mouseout", function(d){ tooltip.style("display", "none");})
+        .attr("color", "green")
+        .attr("width", x.bandwidth())
+        .attr("height", function (d) {
+            return height - y(d.domesticProfitability);
+        });
+
+        debugger
+    }
+
+    var movieOpeningBars = function(data) {
+        // Set the dimensions of the canvas / graph
+        var margin = {top: 20, right: 20, bottom: 50, left: 70};
+        var width = 10000 - margin.left - margin.right;
+        var height = 400 - margin.top - margin.bottom;
+
+        var max = d3.max(data, function(d)
+        {
+            return d.openingWkndGross;
+        })
+
+        // Set the ranges
+        var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+        y = d3.scaleLinear().rangeRound([height, 0]);
+
+        x.domain(data.map(function(d) { return d.dirNames; }));
+        y.domain([0, d3.max(data, function(d) { return d.openingWkndGross; })]);
+
+        // Define the axes
+        var xAxis = d3.axisBottom().scale(x);
+        var yAxis = d3.axisLeft().scale(y);
+
+        // Add the svg canvas
+        var svg = d3.select("body")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+
+        var g = svg.append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+        g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .attr("y", 0)
+        .attr("x", 6)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("text-anchor", "start");
+
+
+        g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(10, "%"))
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("text-anchor", "end")
+        .text("Opening Weekend Gross per screen");
+
+        g.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function (d) {
+            return x(d.dirNames);
+        })
+        .attr("y", function (d) {
+            return y(d.openingWkndGross);
+        })
+        .attr("color", "green")
+        .attr("width", x.bandwidth())
+        .attr("height", function (d) {
+            return height - y(d.openingWkndGross);
+        });
+
+        debugger
+    }
 
 </script>
 
 </body>
 </html>
- 
