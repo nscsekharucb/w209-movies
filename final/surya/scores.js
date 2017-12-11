@@ -1,6 +1,6 @@
     var movieData = {}
 
-        d3.tsv("hollywoodStories_consol.csv", function(data) {
+        d3.tsv("./surya/hollywoodStories_consol.csv", function(data) {
             movieData = data.map(function(d) {
                 return {
                     filmName : d.filmName,

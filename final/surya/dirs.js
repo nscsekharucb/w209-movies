@@ -33,7 +33,7 @@
 
     var slicelen = 947;
 
-    d3.tsv("hollywoodStories_consol.csv", function(data) {
+    d3.tsv("./surya/hollywoodStories_consol.csv", function(data) {
         movieData = data.map(function(d) {
             return {
                 filmName : d.filmName,
@@ -131,18 +131,18 @@
 					var yPosition = parseFloat(d3.select(this).attr("y")) + 14;
                     
                     //Update the tooltip position and value
-					d3.select("#tooltip")
+					d3.select("#surya_tooltip1")
 						.style("left", xPosition + "px")
 						.style("top", yPosition + "px")						
 						.select("#value")
 						.text("Director: " + d.dirNames + '\n' + "Film:" + d.filmName);
 			   
 					//Show the tooltip
-					d3.select("#tooltip").classed("hidden", false);
+					d3.select("#surya_tooltip1").classed("hidden", false);
              })
             .on("mouseout", function() {   
                 //Remove the tooltip
-                d3.select("#tooltip").classed("hidden", true);
+                d3.select("#surya_tooltip1").classed("hidden", true);
 		   });
         } else {
 
@@ -247,18 +247,18 @@
 					var yPosition = parseFloat(d3.select(this).attr("y")) + 14;
                     
                     //Update the tooltip position and value
-					d3.select("#tooltip")
+					d3.select("#surya_tooltip1")
 						.style("left", xPosition + "px")
 						.style("top", yPosition + "px")						
 						.select("#value")
 						.text("Director: " + d.dirNames + '\n' + "Film:" + d.filmName);
 			   
 					//Show the tooltip
-					d3.select("#tooltip").classed("hidden", false);
+					d3.select("#surya_tooltip1").classed("hidden", false);
              })
             .on("mouseout", function() {   
                 //Remove the tooltip
-                d3.select("#tooltip").classed("hidden", true);
+                d3.select("#surya_tooltip1").classed("hidden", true);
 		   });
         } else {
 

@@ -10,11 +10,7 @@
 
     <style>     
 
-    .bar:hover {
-        fill: teal;
-    }
-
-    #tooltip {
+    #surya_tooltip1 {
         position: absolute;
         width: 200px;
         height: auto;
@@ -29,11 +25,11 @@
         pointer-events: none;
     }
     
-    #tooltip.hidden {
+    #surya_tooltip1.hidden {
         display: none;
     }
     
-    #tooltip p {
+    #surya_tooltip1 p {
         margin: 0;
         font-family: sans-serif;
         font-size: 16px;
@@ -62,28 +58,11 @@
         <input type="radio" name="filter" value="reset" checked="checked"> reset</label>
     <br />
 
-<!--
-    <div id="legend">
-        <h3>Filter</h3>
-        <div class="input-group" id="filters">
-            <label>
-                <input type="radio" name="filter" value="all" checked="checked"> All days</label>
-            <br />
-            <label>
-                <input type="radio" name="filter" value="Active"> Active Days</label>
-            <br />
-            <label>
-                <input type="radio" name="filter" value="Lazy"> Lazy Days</label>
-            <br />
-        </div>
-    </div>
--->
-
 </head>
 
 <body translate="no" >
 
-    <div id="tooltip" class="hidden">
+    <div id="surya_tooltip1" class="hidden">
 			<p><strong>Movie Details</strong></p>
             <p><span id="value">100</span></p>
 	</div>
@@ -91,7 +70,32 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
 
-    <script src=dirs.js></script>
+    <script src=./surya/dirs.js></script>
+
+</body>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+    <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+    <title>Movie scores and Profitability</title>
+
+    <style>
+
+</style>
+
+<head>
+    <meta charset="utf-8">
+    <h1>Movie Scores and Profitability</h1>
+</head>
+
+<body translate="no" >
+
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+
+    <script src=./surya/scores.js></script>
 
 </body>
 </html>
