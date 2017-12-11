@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
     <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
-    <title>Opening Gross and Eventual Profitability</title>
+    <title>Movie Profitability vs Opening Gross</title>
 
     <style>     
 
@@ -40,12 +40,18 @@
         display: none;
     }
 
+body {
+    background-color: #f5f5f5;
+    font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
 </style>
 
 
 <head>
     <meta charset="utf-8">
-    <h1>Opening Gross and Eventual Profitability</h1>
+    <h1>Movie Profitability vs Opening gross</h1>
 </head>
 
     <label>
@@ -55,7 +61,7 @@
         <input type="radio" name="filter" value="opening"> Sort by opening weekend gross </label>
     <br />
     <label>
-        <input type="radio" name="filter" value="reset" checked="checked"> reset</label>
+        <input type="radio" name="filter" value="reset" checked="checked"> Reset</label>
     <br />
 
 </head>
@@ -80,14 +86,24 @@
     <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
     <title>Movie scores and Profitability</title>
 
-    <style>
-
-</style>
 
 <head>
     <meta charset="utf-8">
     <h1>Movie Scores and Profitability</h1>
 </head>
+
+    <label>
+        <input type="radio" name="scorefilter" value="tomatoes"> Sort by Rotten Tomatoes score </label>
+    <br />
+    <label>
+        <input type="radio" name="scorefilter" value="audience"> Sort by Audience score </label>
+    <br />
+    <label>
+        <input type="radio" name="scorefilter" value="profitability"> Sort by Movie profitability </label>
+    <br />
+    <label>
+        <input type="radio" name="scorefilter" value="reset" checked="checked"> Reset</label>
+    <br />
 
 <body translate="no" >
 
