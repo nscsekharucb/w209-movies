@@ -1,0 +1,185 @@
+.enter {
+  fill: #EDCA3A;
+}
+
+.update {
+  fill: #1FBAD6;
+}
+
+.exit {
+  fill: #F25754;
+}
+
+.selected {
+  fill: #E6B0F1;
+}
+
+div.tooltip {
+  color: black;
+  position: absolute;
+  text-align: left;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font-family: Futura;
+  font: 12px sans-serif ;
+  background: #FCB8C3FF;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.hist-film-name-tooltip {
+  font-weight: bold;
+  font-size: 200%;
+  margin-bottom: 0.01em;
+}
+
+.hist-film-genre-tooltip {
+  font-size: 150%;
+  margin-bottom: 0.01em;
+}
+
+.hist-film-profitDollars-tooltip {
+  font-size: 200%;
+}
+
+.hist-profitDollars-subtitle-tooltip {
+  font-size: 125%;
+}
+
+.genre-Action {
+  fill: #f28e2b;
+  stroke: #f28e2b;
+  stroke-width: 0px;
+}
+
+.genre-Action-profit {
+  stroke: #f28e2b;
+  stroke-width: 2px;
+}
+
+.genre-Comedy {
+  fill: #9c755f;
+  stroke: #9c755f;
+  stroke-width: 0px;
+}
+
+.genre-Documentary {
+  fill: #76b7b2;
+  stroke: #76b7b2;
+  stroke-width: 1.5px;
+}
+
+.genre-Drama {
+  fill: #59a14f;
+  stroke: #59a14f;
+  stroke-width: 1.5px;
+}
+
+.genre-Family {
+  fill: #edc948;
+  stroke: #edc948;
+  stroke-width: 1.5px;
+}
+
+.genre-Horror {
+  fill: #e15759;
+  stroke: #e15759;
+  stroke-width: 1.5px;
+}
+
+.genre-Musical {
+  fill: #b07aa1;
+  stroke: #b07aa1;
+  stroke-width: 1.5px;
+}
+
+.genre-Romance {
+  fill: #ff9da7;
+  stroke: #ff9da7;
+  stroke-width: 1.5px;
+}
+
+.genre-Thriller {
+  fill: #bab0ac;
+  stroke: #bab0ac;
+  stroke-width: 1.5px;
+}
+
+h1 {
+  color: #222;
+  font-family: Archivo Narrow, Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  font-size: 66px;
+  margin-bottom: 0px;
+  margin-top: 80px;
+}
+
+h2 {
+  color: #5e5e5e;
+  font-family: Archivo Narrow, Arial, Helvetica, sans-serif;
+  font-size: 28px;
+  margin-top: 0px;
+  margin-bottom: 24px;
+}
+
+.byline {
+  color: #5e5e5e;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+<!--       letter-spacing: 2px; -->
+  margin-top: 0px;
+  margin-bottom: 60px;
+}
+.line {
+  fill: none;
+  stroke: #143966;
+  stroke-width: 6px;
+  /*opacity: 0.5;*/
+}
+
+/*    path:hover {
+  stroke-width: 8px;
+  opacity: 1.0;
+}*/
+
+
+.line--fade {
+  opacity: 0.5;  
+}
+  
+.line--hover {
+  stroke-width: 12px;
+  opacity: 1.0;
+}
+
+.title {
+  fill: #484b4f;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  font-size: 80;
+}
+
+.subtitle {
+  fill: #797e84;
+
+}
+
+.y_axis_label text{
+  fill: #484b4f;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+/*#plot-div {
+  background-color: white;
+}*/
+
+.footer {
+  color: #878787;
+}
+
+.graph {
+
+}
