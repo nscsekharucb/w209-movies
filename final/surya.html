@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html >
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+    <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+    <title>Opening Gross and Eventual Profitability</title>
+
+    <style>     
+
+    .bar:hover {
+        fill: teal;
+    }
+
+    #tooltip {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        padding: 10px;
+        background-color: lightgray;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+    }
+    
+    #tooltip.hidden {
+        display: none;
+    }
+    
+    #tooltip p {
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .axis--x path {
+        display: none;
+    }
+
+</style>
+
+
+<head>
+    <meta charset="utf-8">
+    <h1>Opening Gross and Eventual Profitability</h1>
+</head>
+
+    <label>
+        <input type="radio" name="filter" value="profitability"> Sort by profitability </label>
+    <br />
+    <label>
+        <input type="radio" name="filter" value="opening"> Sort by opening weekend gross </label>
+    <br />
+    <label>
+        <input type="radio" name="filter" value="reset" checked="checked"> reset</label>
+    <br />
+
+<!--
+    <div id="legend">
+        <h3>Filter</h3>
+        <div class="input-group" id="filters">
+            <label>
+                <input type="radio" name="filter" value="all" checked="checked"> All days</label>
+            <br />
+            <label>
+                <input type="radio" name="filter" value="Active"> Active Days</label>
+            <br />
+            <label>
+                <input type="radio" name="filter" value="Lazy"> Lazy Days</label>
+            <br />
+        </div>
+    </div>
+-->
+
+</head>
+
+<body translate="no" >
+
+    <div id="tooltip" class="hidden">
+			<p><strong>Movie Details</strong></p>
+            <p><span id="value">100</span></p>
+	</div>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+
+    <script src=dirs.js></script>
+
+</body>
+</html>
