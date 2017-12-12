@@ -1,3 +1,8 @@
+.long-body {
+  float: left;
+  min-width: 100%;
+}
+
 .enter {
   fill: #EDCA3A;
 }
@@ -166,9 +171,9 @@ axis-alex {
   font-family: Archivo Narrow, Arial, Helvetica, sans-serif;
   font-weight: bolder;
   font-size: 45px;
-  margin-bottom: 0px;
+  margin-left: 300px;
   margin-top: 80px;
-  text-align: center;
+  text-align: left;
   display: block;
 }
 
@@ -238,7 +243,7 @@ hr.style5 {
 }
 
 .gradientBottom {
-background: #8e9eab;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to top, #8e9eab, #eef2f3);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to top, #8e9eab, #eef2f3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #8e9eab;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #8e9eab, #eef2f3);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #8e9eab, #eef2f3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }

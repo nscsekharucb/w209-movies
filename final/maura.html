@@ -3,43 +3,57 @@
 <head>
   <meta charset="UTF-8">
     <title>Studio Profit by Month Stream Graph </title>
-  
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow:400,400i,500,500i,600,600i,700,700i" rel="stylesheet"> <!-- Archivo font -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://d3js.org/d3.v2.js"></script>
       <link rel="stylesheet" href="maura/css/style.css">
 
   
 </head>
 
 <body>
-  
-
 <style>
- 
 </style>
 
 <body>
-	 <h1> The Movie Calendar, as defined by Film Studios</h1>
+<a href="index.html" style="font-size: 15px; margin-left: 20px;">Back</a>
 
-	 <h3>The release date of a movie can define profitability or critical acclaim teh film receives </h3>
+      <div class="row" style="margin-bottom: 0px; margin-top: 0px">
+          <div class="col-md-2"></div>
+          <div class="col-md-8" style="margin-bottom: 0px; margin-top: 20px;  text-align: center"><h1-two> The Movie Calendar, as defined by Film Studios</h1-two></div>
+          <div class="col-md-2"></div>
+      </div>
+<!-- 	 <h1-two> The Movie Calendar, as defined by Film Studios</h1-two> -->
+      <div class="row" style="margin-bottom: 0px; margin-top: 0px">
+          <div class="col-md-2"></div>
+            <div class="col-md-8" style="margin-bottom: 0px; margin-top: 20px">
+          	 <h3>The release date of a movie can define profitability or critical acclaim the film receives. </h3>
 
-	 <p>
-Film studios are very careful about when they release which films to the public. In terms of movies, certain times of year are thought of as having different purpose for films. The timing can set the stage for how a film is viewed or who the most audience would be. 
+          	 <p class="bodycopy">
+          Film studios are very careful about when they release which films to the public. In terms of movies, certain times of year are thought of as having different purpose for films. The timing can set the stage for how a film is viewed or who the most audience would be. 
 
-<br><br> Generally December has come of the year’s best films (as decided by critics and viewers alike) and winter months tend to offer higher box office profits or award-worthy movies. But, throughout the year each month has a stereotype followed by film studios. These stereotypes include 
+          <br><br> Generally December has come of the year’s best films (as decided by critics and viewers alike) and winter months tend to offer higher box office profits or award-worthy movies. But, throughout the year each month has a stereotype followed by film studios. These stereotypes include 
 
-<br><br> Studios tend to slate their movie based on a couple factors - most of these motives are to achieve the biggest economic return as possible. 
-<ul>Is there something timely or seasonal that will make audiences specifically interested in our film this month?</ul>
-<ul>Are there similar movies coming out at the same time that we don’t want to compete with at the box office?</ul>
-<ul>Are we prioritizing our movies that have the best chances to make money by putting them in the best months for ticket sales?</ul>
+          <br><br> Studios tend to slate their movie based on a couple factors - most of these motives are to achieve the biggest economic return as possible. 
+          <ul class="bodycopy">Is there something timely or seasonal that will make audiences specifically interested in our film this month?</ul>
+          <ul class="bodycopy">Are there similar movies coming out at the same time that we don’t want to compete with at the box office?</ul>
+          <ul class="bodycopy">Are we prioritizing our movies that have the best chances to make money by putting them in the best months for ticket sales?</ul>
 
-<h2> But do we actually see this reflected in the Gross profits of movies in 2016? </h2>
+          <h3> But do we actually see this reflected in the Gross profits of movies in 2016? </h3>
+          	 </p>
+            </div>
+          <div class="col-md-2"></div>
+      </div>
 
-	 </p>
-
-
-
-  <script src="https://d3js.org/d3.v2.js"></script>
-  <div id="streamgraph"></div>
-  
+    <div class="row" style="margin-bottom: 0px; margin-top: 0px">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" style="margin-bottom: 0px; margin-top: 20px; text-align: center"><div id="streamgraph"></div></div>
+        <div class="col-md-2"></div>
+    </div>
+<!-- <div id="streamgraph"> -->
     <script  src="maura/js/index.js"></script>
 
 <p>
@@ -68,7 +82,7 @@ For each individual film studio, it can be tough to see the calendar of film rel
 <br>
 <br>
 
-<h1>See each Studio's Films released in 2016 by the Month </h1>
+<h1-two>See each Studio's Films released in 2016 by the Month </h1-two>
 
 <p5>Film Monthly Gross By Studio </p5>
   <table class="films", style="width:50%">
