@@ -1,0 +1,49 @@
+ body {
+    font: 12px sans-serif;
+    background-color: lightGray ;
+  }
+  
+  .chart {
+    background: #fff;
+  }
+  
+  p {
+    font: 14px helvetica;
+  }
+  
+  p.footnote{
+    font: 10px helvetica;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+  }
+
+  ul{
+  font: 14px helvetica; 
+}
+table, th, td {
+    font: 14px helvetica;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table.films td.profit {
+  text-align: right;
+}
+
+table.film td.film_name{
+  text-align: center;
+  width:5000px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+  }
