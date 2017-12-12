@@ -4,12 +4,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Surya -->
-    <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
-    <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
-
-
-
+  <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   
@@ -17,7 +13,6 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -62,7 +57,8 @@
     }*/
 
 body {
-    background-color: #f5f5f5;
+/*    background-color: #f5f5f5;*/
+    background-color: #f0f2f0;
     font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 </style>
@@ -71,8 +67,10 @@ body {
 
   
 </head>
-
-<body style="background-color: rgb(254, 254, 254);">
+<!-- Alex Start -->
+<!-- <body style="background-color: rgb(254, 254, 254);"> -->
+<!-- <body style="background-color: #f0f2f0;"> -->
+<body style="background-color: #eef2f3;">
 
   <div class="container-fluid">
 
@@ -94,20 +92,13 @@ body {
       </div>
       <div class="row" style="margin-bottom: 0px; margin-top: 0px">
           <div class="col-md-2"></div>
-          <div class="col-md-8" style="margin-bottom: 0px"><p class="text-left">Nam lacinia est vitae nibh ornare aliquet. Aenean at sagittis tortor, eu tincidunt ipsum. Etiam dignissim, elit vel imperdiet fringilla, elit eros tincidunt nisl, in luctus risus nisl sit amet nunc. Cras eleifend pharetra sapien non aliquet. Mauris a auctor orci. Curabitur justo nunc, commodo sed turpis eget, ultrices rhoncus risus. Praesent elementum non sapien vel volutpat. Nulla vehicula elit in enim lacinia placerat. Nulla molestie lectus commodo urna hendrerit ultrices. In iaculis placerat mauris vitae laoreet. In sed ante eros. Nam sed volutpat magna. Cras lacinia sem mattis mauris cursus, in viverra dolor interdum. Proin sit amet lectus tincidunt, convallis lectus a, lobortis sem. Nullam feugiat sit amet purus et feugiat. Nam lectus mi, consectetur vel ullamcorper a, ullamcorper eget enim.</p>
-<!--           <h3 class="text-left">Interactions</h3>
-          <ul>Mouse hover over line highlights that line.</ul>
-          <ul>Clicking the toggle button hides/shows data labels.</ul> -->
+          <div class="col-md-8" style="margin-bottom: 0px"><p class="text-left bodycopy">Our project uses D3 to visualize various aspects of American film data collected from 2008 through 2013. Our focus was primarily on the relationships between genres, review scores, domestic gross revenue (opening week and overall), profitability, and release windows. These exploratory visualizations are intended to highlight interesting relationships and serve as tools for discovering further insights. The primary audience includes film fans and those interested in testing their own preconceptions of the business side of the movie industry. Are big blockbusters also big money makers? Is it wise to release a movie in the Spring if one wants to maximize profits? Welcome to our 'behind the scenes' look at movie metrics!</p>
           </div>
           <div class="col-md-2"></div>
       </div>
-
-      <!-- <div class="row" id="plot-div" style="margin-top: 30px; padding-top: 30px; padding-bottom: 30px"> -->
+  <hr class="style5">
       <br><br>
       <div class="row">
-<!--           <div align="center" class='h2'> Film Genres: Review Scores and Profits </div><div id="profit-chart-buttons" class="col-md-8 btn-group mx-auto"></div>
-          <div class="col-md-8 h2" align="center">Film Genres: Review Scores and Profits</div>
-          <div id="profit-chart-tooltipArea-alex" class="col-md-4" style="margin-top: 0px"></div> -->
           <span align="left" class='h2' style="margin-left: 30px; margin-right: 25px"> <h1-two>Film Genres: Review Scores and Profits </h1-two></span><span id="profit-chart-buttons" class="btn-group mx-auto">
             <div class="btn-group dropdown">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -130,14 +121,11 @@ body {
           </span>
       </div>
 
-      <!-- <div align="center" class='h2'> Film Genres: Review Scores and Profits </div> -->
       <div class="row">
-<!--           <div class="col-md-2"></div> -->
           <div id="profit-chart-alex" class="col-md-8" style="margin-top: 18px"></div>
           <div id="profit-chart-tooltipArea-alex" class="col-md-4" style="margin-top: 0px">
                         <img id="profit-chart-alex-legend" src="alex/img/genreLegend.png" alt="Genre Legend" style="width:350px;height:134px; margin-bottom: 15px">
           </div>
-          <!-- <div class="col-md-2"></div> -->
       </div>
 
       <div class="row">
@@ -154,9 +142,19 @@ body {
   
 
   </div> <!-- main container-fluid -->
-  <br><br><br>
+
+  <div class="row" style="margin-bottom: 0px; margin-top: 0px">
+      <div class="col-md-2"></div>
+      <div class="col-md-8" style="margin-bottom: 0px"><p class="text-left bodycopy">Due to differences between critic and audience scores, we created a blended score by weighting both equally. In the tooltip for a film, the critic-to-audience ratio shows the relationship between these scores. A value of 1.0 means that both critics and audiences reviews were in agreement. A value greater than 1.0 results from critics reviewing the film higher than audiences, while the opposite is true for films with a ratio less than 1.0.</p>
+      </div>
+      <div class="col-md-2"></div>
+  </div>
+
+  <br><br>
 
   <script src="alex/script-main.js"></script>
+
+  <hr class="style5">
 <!-- End Alex -->
 <!-- Begin Surya -->
 <!-- Plot 1 -->
@@ -191,7 +189,8 @@ body {
       <script src=./surya/dirs.js></script>
 
   </body>
-
+<br><br>
+<hr class="style5">
 <!-- Plot 2 -->
 <head>
     <meta charset="utf-8">
@@ -224,7 +223,10 @@ body {
 
 <!-- End Surya -->
 
-
+<br><br>
+<div class="gradientBottom" style="height: 200px; margin-top: 30px;">
+  <a class="linky-link" style="line-height: 200px;" href="maura.html">Continue to The Movie Calendar</a>
+</div>
 
 
 
