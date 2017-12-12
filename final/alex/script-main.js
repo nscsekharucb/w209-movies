@@ -50,7 +50,7 @@ const tooltip = d3.select("#profit-chart-tooltipArea-alex")
 const t = d3.transition()
       .duration(750);
 
-const dataFile = "data/hollywoodStories_consol_alex.csv"
+const dataFile = "alex/data/hollywoodStories_consol_alex.csv"
 
 // Dot scaler (larger value leads to smaller dots)
 const dotScaler = 4;
@@ -298,7 +298,10 @@ d3.csv(dataFile, function(error, allData) {
 
           // Switch out legend
           d3.select("#profit-chart-alex-legend")
-            .attr("src", "img/genreLegend.png")
+            .attr("src", "alex/img/genreLegend.png")
+
+          // Simulate mouse click to re-enable tooltips
+          document.getElementById("#profit-chart-alex").click();
         }); // Clear filters button
 
     // Button enable profit $ view
@@ -332,11 +335,13 @@ d3.csv(dataFile, function(error, allData) {
           filterGenre = "All Genres"
           // console.log(filterGenre)
           // console.log(data)
-          update();
+          update()
+          // Simulate mouse click to re-enable tooltips
+          document.getElementById("#profit-chart-alex").click();
 
           // Switch out legend
           d3.select("#profit-chart-alex-legend")
-            .attr("src", "img/genreLegend.png")
+            .attr("src", "alex/img/genreLegend.png")
 
           return false;
           } else {
@@ -346,7 +351,9 @@ d3.csv(dataFile, function(error, allData) {
           })
           d3.select("body").selectAll(".tooltip").style("opacity", 0); // Set all tooltips back to invisible
           if (modeFlag == "review") {
-            update();
+            update()
+            // Simulate mouse click to re-enable tooltips
+            document.getElementById("svg").click();;
           } else if (modeFlag == "profDol") {
             profitDollars();
           } else if (modeFlag == "profPerc") {
@@ -448,8 +455,11 @@ d3.csv(dataFile, function(error, allData) {
 
         // Switch out legend
         d3.select("#profit-chart-alex-legend")
-          .attr("src", "img/profitLegend.png")
+          .attr("src", "alex/img/profitLegend.png")
         
+          // Simulate mouse click to re-enable tooltips
+          document.getElementById("#profit-chart-alex").click();
+
     }; // Profit $ view
 
     function profitPercent(d) {
@@ -529,8 +539,10 @@ d3.csv(dataFile, function(error, allData) {
 
         // Switch out legend
         d3.select("#profit-chart-alex-legend")
-          .attr("src", "img/profitLegend.png")
+          .attr("src", "alex/img/profitLegend.png")
 
+          // Simulate mouse click to re-enable tooltips
+          document.getElementById("#profit-chart-alex").click();
     }; // Profit % view
 
     // Summary box

@@ -116,12 +116,41 @@ h1 {
   margin-top: 80px;
 }
 
+h1-two {
+  color: #222;
+  font-family: Archivo Narrow, Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  font-size: 45px;
+  margin-bottom: 0px;
+  margin-top: 80px;
+}
+
 h2 {
   color: #5e5e5e;
   font-family: Archivo Narrow, Arial, Helvetica, sans-serif;
   font-size: 28px;
   margin-top: 0px;
   margin-bottom: 24px;
+}
+
+chart-title-alex {
+  color: #222;
+  font-family: Archivo Narrow, Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  font-size: 25px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-left: 30px;
+}
+
+axis-alex {
+  color: #222;
+  font-family: Archivo Narrow, Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  font-size: 30px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-left: 30px;
 }
 
 .byline {

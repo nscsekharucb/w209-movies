@@ -1,8 +1,8 @@
 
 // Set the dimensions of the canvas / graph
-var margin = { top: 20, right: 20, bottom: 70, left: 50 };
-var width = 10480 - margin.left - margin.right;
-var height = 400 - margin.top - margin.bottom;
+var marginSurya = { top: 20, right: 20, bottom: 70, left: 50 };
+var widthSurya = 10480 - marginSurya.left - marginSurya.right;
+var heightSurya = 400 - marginSurya.top - marginSurya.bottom;
 
 // Add the svgProfit canvas
 var svgProfit = d3.select("body")
@@ -13,8 +13,8 @@ var svgOpening = d3.select("body")
     .append("svg");
 
 // Set the ranges
-var xScaleProfit = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-    yScaleProfit = d3.scaleLinear().rangeRound([height, 0]);
+var xScaleProfit = d3.scaleBand().rangeRound([0, widthSurya]).padding(0.1),
+    yScaleProfit = d3.scaleLinear().rangeRound([heightSurya, 0]);
 
 
 // Define the axes
@@ -22,8 +22,8 @@ var xAxisScaleProfit = d3.axisBottom().scale(xScaleProfit);
 var yAxisScaleProfit = d3.axisLeft().scale(yScaleProfit);
 
 // Set the ranges
-var xScaleOpening = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-    yScaleOpening = d3.scaleLinear().rangeRound([height, 0]);
+var xScaleOpening = d3.scaleBand().rangeRound([0, widthSurya]).padding(0.1),
+    yScaleOpening = d3.scaleLinear().rangeRound([heightSurya, 0]);
 
 
 // Define the axes
@@ -72,16 +72,16 @@ var movieProfitBars = function (data, update) {
 
     if (!update) {
 
-        svgProfit.attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom);
+        svgProfit.attr("width", widthSurya + marginSurya.left + marginSurya.right)
+            .attr("height", heightSurya + marginSurya.top + marginSurya.bottom);
 
         var g = svgProfit.append("g")
             .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+            "translate(" + marginSurya.left + "," + marginSurya.top + ")");
 
         g.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
+            .attr("transform", "translate(0," + heightSurya + ")")
             .call(xAxisScaleProfit)
             .selectAll("text")
             .attr("y", 0)
@@ -98,8 +98,8 @@ var movieProfitBars = function (data, update) {
         g.append("text")
             .attr("transform", "rotate(-90)")
             .attr("dy", "0.71em")
-            .attr("y", 0 - margin.left)
-            .attr("x", 0 - (height / 2))
+            .attr("y", 0 - marginSurya.left)
+            .attr("x", 0 - (heightSurya / 2))
             .style("text-anchor", "middle")
             .text("Profitability");
 
@@ -124,7 +124,7 @@ var movieProfitBars = function (data, update) {
             })
             .attr("width", xScaleProfit.bandwidth())
             .attr("height", function (d) {
-                return height - yScaleProfit(d.domesticProfitability);
+                return heightSurya - yScaleProfit(d.domesticProfitability);
             })
             .on("mouseover", function (d) {
                 //Get this bar's x/y values, then augment for the tooltip
@@ -169,7 +169,7 @@ var movieProfitBars = function (data, update) {
             })
             .attr("width", xScaleProfit.bandwidth())
             .attr("height", function (d) {
-                return height - yScaleProfit(d.domesticProfitability);
+                return heightSurya - yScaleProfit(d.domesticProfitability);
             });
 
         svgProfit.select(".x.axis")
@@ -193,16 +193,16 @@ var movieOpeningBars = function (data, update) {
 
     if (!update) {
 
-        svgOpening.attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom);
+        svgOpening.attr("width", widthSurya + marginSurya.left + marginSurya.right)
+            .attr("height", heightSurya + marginSurya.top + marginSurya.bottom);
 
         var g = svgOpening.append("g")
             .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+            "translate(" + marginSurya.left + "," + marginSurya.top + ")");
 
         g.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
+            .attr("transform", "translate(0," + heightSurya + ")")
             .call(xAxisScaleOpening)
             .selectAll("text")
             .attr("y", 0)
@@ -219,8 +219,8 @@ var movieOpeningBars = function (data, update) {
         g.append("text")
             .attr("transform", "rotate(-90)")
             .attr("dy", "0.71em")
-            .attr("y", 0 - margin.left)
-            .attr("x", 0 - (height / 2))
+            .attr("y", 0 - marginSurya.left)
+            .attr("x", 0 - (heightSurya / 2))
             .style("text-anchor", "middle")
             .text("Opening Weekend Gross per screen");
 
@@ -245,7 +245,7 @@ var movieOpeningBars = function (data, update) {
             })
             .attr("width", xScaleOpening.bandwidth())
             .attr("height", function (d) {
-                return height - yScaleOpening(d.openingWkndGross);
+                return heightSurya - yScaleOpening(d.openingWkndGross);
             })
             .on("mouseover", function (d) {
                 //Get this bar's x/y values, then augment for the tooltip
@@ -290,7 +290,7 @@ var movieOpeningBars = function (data, update) {
             })
             .attr("width", xScaleOpening.bandwidth())
             .attr("height", function (d) {
-                return height - yScaleOpening(d.openingWkndGross);
+                return heightSurya - yScaleOpening(d.openingWkndGross);
             });
 
         svgOpening.select(".x.axis")

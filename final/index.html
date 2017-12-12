@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Surya -->
+    <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+    <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+
+
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow:400,400i,500,500i,600,600i,700,700i" rel="stylesheet"> <!-- Archivo font -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script src="https://d3js.org/d3-color.v1.min.js"></script>
+  <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+  <script src="https://d3js.org/d3-format.v1.min.js"></script>
+  
+  <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+
+  <!-- Person-specific file refs -->
+  <link rel="stylesheet" type="text/css" href="alex/style-main.css">
+
+<style>     
+    #surya_tooltip1 {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        padding: 10px;
+        background-color: lightgray;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+    }
+    
+    #surya_tooltip1.hidden {
+        display: none;
+    }
+    
+    #surya_tooltip1 p {
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+/*    .axis--x path {
+        display: none;
+    }*/
+
+body {
+    background-color: #f5f5f5;
+    font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+
+
+
+  
+</head>
+
+<body style="background-color: rgb(254, 254, 254);">
+
+  <div class="container-fluid">
+
+      <div class="row" style="margin-bottom: 0px; margin-top: 0px">
+          <div class="col-md-2"></div>
+          <div class="col-md-8" style="margin-bottom: 0px"><h1 class="text-middle" style="text-align:center">Behind the Scenes</h1></div>
+          <div class="col-md-2"></div>
+      </div>
+      <div class="row" style="margin-bottom: 0px; margin-top: 0px">
+          <div class="col-md-2"></div>
+          <div class="col-md-8" style="margin-bottom: 0px"><h2 class="text-middle" style="text-align:center">Visualizing the data of the film industry</h2></div>
+          <div class="col-md-2"></div>
+      </div>
+      <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-4" style="margin-top: 18px"><p class="byline" style="text-align:right">Surya Nimmagadda<br>Maura Cullen<br>Alex Lau</p></div>
+          <div class="col-md-4" style="margin-top: 18px"><p class="byline" style="text-align:left">W209-2 Fall 2017</p></div>
+          <div class="col-md-2"></div>
+      </div>
+      <div class="row" style="margin-bottom: 0px; margin-top: 0px">
+          <div class="col-md-2"></div>
+          <div class="col-md-8" style="margin-bottom: 0px"><p class="text-left">Nam lacinia est vitae nibh ornare aliquet. Aenean at sagittis tortor, eu tincidunt ipsum. Etiam dignissim, elit vel imperdiet fringilla, elit eros tincidunt nisl, in luctus risus nisl sit amet nunc. Cras eleifend pharetra sapien non aliquet. Mauris a auctor orci. Curabitur justo nunc, commodo sed turpis eget, ultrices rhoncus risus. Praesent elementum non sapien vel volutpat. Nulla vehicula elit in enim lacinia placerat. Nulla molestie lectus commodo urna hendrerit ultrices. In iaculis placerat mauris vitae laoreet. In sed ante eros. Nam sed volutpat magna. Cras lacinia sem mattis mauris cursus, in viverra dolor interdum. Proin sit amet lectus tincidunt, convallis lectus a, lobortis sem. Nullam feugiat sit amet purus et feugiat. Nam lectus mi, consectetur vel ullamcorper a, ullamcorper eget enim.</p>
+<!--           <h3 class="text-left">Interactions</h3>
+          <ul>Mouse hover over line highlights that line.</ul>
+          <ul>Clicking the toggle button hides/shows data labels.</ul> -->
+          </div>
+          <div class="col-md-2"></div>
+      </div>
+
+      <!-- <div class="row" id="plot-div" style="margin-top: 30px; padding-top: 30px; padding-bottom: 30px"> -->
+      <br><br>
+      <div class="row">
+<!--           <div align="center" class='h2'> Film Genres: Review Scores and Profits </div><div id="profit-chart-buttons" class="col-md-8 btn-group mx-auto"></div>
+          <div class="col-md-8 h2" align="center">Film Genres: Review Scores and Profits</div>
+          <div id="profit-chart-tooltipArea-alex" class="col-md-4" style="margin-top: 0px"></div> -->
+          <span align="left" class='h2' style="margin-left: 30px; margin-right: 25px"> <h1-two>Film Genres: Review Scores and Profits </h1-two></span><span id="profit-chart-buttons" class="btn-group mx-auto">
+            <div class="btn-group dropdown">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Genres... <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a  id="dd-action">Action</a></li>
+                <li><a >Comedy</a></li>
+                <li><a >Documentary</a></li>
+                <li><a >Drama</a></li>
+                <li><a >Family</a></li>
+                <li><a >Horror</a></li>
+                <li><a >Musical</a></li>
+                <li><a >Romance</a></li>
+                <li><a >Thriller</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a >Show All Genres</a></li>
+              </ul>
+            </div>
+          </span>
+      </div>
+
+      <!-- <div align="center" class='h2'> Film Genres: Review Scores and Profits </div> -->
+      <div class="row">
+<!--           <div class="col-md-2"></div> -->
+          <div id="profit-chart-alex" class="col-md-8" style="margin-top: 18px"></div>
+          <div id="profit-chart-tooltipArea-alex" class="col-md-4" style="margin-top: 0px">
+                        <img id="profit-chart-alex-legend" src="alex/img/genreLegend.png" alt="Genre Legend" style="width:350px;height:134px; margin-bottom: 15px">
+          </div>
+          <!-- <div class="col-md-2"></div> -->
+      </div>
+
+      <div class="row">
+          <div class='wrapper mx-auto'>
+            <div id="profit-chart-buttons" class="col-md-8 btn-group mx-auto" style="margin-top: -3px; text-align: center;"></div>
+          </div>
+            <div class="col-md-4" style="margin-top: 0px"></div>
+      </div>
+
+      <div align="center" id="profit-chart-alex">
+      </div>
+      <br>
+      <div align="center" id="profit-chart-buttons"></div>
+  
+
+  </div> <!-- main container-fluid -->
+  <br><br><br>
+
+  <script src="alex/script-main.js"></script>
+<!-- End Alex -->
+<!-- Begin Surya -->
+<!-- Plot 1 -->
+
+<head>
+    <meta charset="utf-8">
+    <h1-two style="margin-left: 30px;">Movie Profitability vs Opening gross</h1-two>
+</head>
+
+<div style="margin-left: 30px">
+    <label>
+        <input type="radio" name="filter" value="profitability"> Sort by profitability </label>
+    <br />
+    <label>
+        <input type="radio" name="filter" value="opening"> Sort by opening weekend gross </label>
+    <br />
+    <label>
+        <input type="radio" name="filter" value="reset" checked="checked"> Reset</label>
+    <br />
+</div>
+
+  <body translate="no" >
+
+      <div id="surya_tooltip1" class="hidden">
+        <p><strong>Movie Details</strong></p>
+              <p><span id="value">100</span></p>
+    </div>
+
+<!--       <script src="https://d3js.org/d3.v4.min.js"></script>
+      <script src="https://d3js.org/d3-dsv.v1.min.js"></script> -->
+
+      <script src=./surya/dirs.js></script>
+
+  </body>
+
+<!-- Plot 2 -->
+<head>
+    <meta charset="utf-8">
+    <h1-two style="margin-left: 30px;">Movie Scores and Profitability</h1-two>
+</head>
+
+<div style="margin-left: 30px">
+    <label>
+        <input type="radio" name="scorefilter" value="tomatoes"> Sort by Rotten Tomatoes score </label>
+    <br />
+    <label>
+        <input type="radio" name="scorefilter" value="audience"> Sort by Audience score </label>
+    <br />
+    <label>
+        <input type="radio" name="scorefilter" value="profitability"> Sort by Movie profitability </label>
+    <br />
+    <label>
+        <input type="radio" name="scorefilter" value="reset" checked="checked"> Reset</label>
+    <br />
+</div>
+<body translate="no" >
+
+
+<!--     <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script> -->
+
+    <script src=./surya/scores.js></script>
+</body>
+
+
+<!-- End Surya -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- All JS -->
+
+
+</body></html>
