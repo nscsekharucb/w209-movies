@@ -356,7 +356,23 @@ var data = [ { key: "20th Century Fox", date: "01/01", value: "68.61" },
     
     var legendRectSize = 18;
     var legendSpacing = 4;
-    var tooltip_height_top = "340px";
+    var tooltip_height_top = "390px"
+    var lineHeight = "220px"
+    var tooltip_height_top = height;
+
+      var vertical = d3
+      .select("#streamgraph")
+      .append("g")
+      .attr("class", "remove")
+      .style("position", "absolute")
+      //.style("position", "relative")
+      .style("z-index", "30")
+      .style("width", "3px")
+      .style("height", lineHeight) 
+      .style("top", tooltip_height_top) 
+      .style("bottom", "30px")
+      .style("left", "0px")
+      .style("background", "#fff");
 
     var tooltip = d3
       .select("body")
@@ -571,20 +587,6 @@ var data = [ { key: "20th Century Fox", date: "01/01", value: "68.61" },
           tooltip.html("<p>" + d.key + "<br>$" + pro + "</p>")
             .style("visibility", "hidden");
       });
-    
-    var vertical = d3
-      .select("#streamgraph")
-      .append("g")
-      .attr("class", "remove")
-      .style("position", "absolute")
-      //.style("position", "relative")
-      .style("z-index", "30")
-      .style("width", "3px")
-      .style("height", "240px" ) 
-      .style("top", "390px") 
-      .style("bottom", "30px")
-      .style("left", "0px")
-      .style("background", "#fff");
 
 
     d3
