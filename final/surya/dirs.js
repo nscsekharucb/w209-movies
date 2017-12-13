@@ -133,8 +133,10 @@ var movieProfitBars = function (data, update) {
 
                 //Update the tooltip position and value
                 d3.select("#surya_tooltip1")
-                    .style("left", xPosition + "px")
-                    .style("top", yPosition + "px")
+                    //.style("left", xPosition + "px")
+                    //.style("top", yPosition + "px")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY) + "px")
                     .select("#value")
                     .text("Director: " + d.dirNames + '\n' + "Film:" + d.filmName);
 
@@ -254,8 +256,8 @@ var movieOpeningBars = function (data, update) {
 
                 //Update the tooltip position and value
                 d3.select("#surya_tooltip1")
-                    .style("left", xPosition + "px")
-                    .style("top", yPosition + "px")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY) + "px")
                     .select("#value")
                     .text("Director: " + d.dirNames + '\n' + "Film:" + d.filmName);
 

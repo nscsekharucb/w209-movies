@@ -52,6 +52,32 @@
         line-height: 20px;
     }
 
+    #surya_tooltip2 {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        padding: 10px;
+        background-color: lightgray;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+    }
+    
+    #surya_tooltip2.hidden {
+        display: none;
+    }
+    
+    #surya_tooltip2 p {
+        margin: 0;
+        font-family: sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+    }
+
 /*    .axis--x path {
         display: none;
     }*/
@@ -164,6 +190,13 @@ body {
     <h1-two style="margin-left: 30px;">Movie Profitability vs Opening gross</h1-two>
 </head>
 
+  <div class="row" style="margin-bottom: 0px; margin-top: 0px">
+      <div class="col-md-2"></div>
+      <div class="col-sm-8" style="margin-bottom: 0px"><p class="text-left bodycopy">Does the movie profitability depend on how well the movie starts in its opening weekend? I assumed so. Explore the movie profitability and compare against the opening weekends. I thought Avatar and Iron man would be most profitable, but turns out the horror movies are the most profitable ones.</p>
+      </div>
+      <div class="col-md-2"></div>
+  </div>
+
 <div style="margin-left: 30px">
     <label>
         <input type="radio" name="filter" value="profitability"> Sort by profitability </label>
@@ -197,6 +230,13 @@ body {
     <h1-two style="margin-left: 30px;">Movie Scores and Profitability</h1-two>
 </head>
 
+  <div class="row" style="margin-bottom: 0px; margin-top: 0px">
+      <div class="col-md-2"></div>
+      <div class="col-sm-8" style="margin-bottom: 0px"><p class="text-left bodycopy">Does the movie profitability depend on how well it is rated by Rotten Tomatoes? Or does it depend more on audience ratings? Or it doesnt matter either? Explore to find interesting patterns.</p>
+      </div>
+      <div class="col-md-2"></div>
+  </div>
+
 <div style="margin-left: 30px">
     <label>
         <input type="radio" name="scorefilter" value="tomatoes"> Sort by Rotten Tomatoes score </label>
@@ -212,7 +252,11 @@ body {
     <br />
 </div>
 <body translate="no" >
-
+    
+      <div id="surya_tooltip2" class="hidden">
+        <p><strong>Movie Details</strong></p>
+              <p><span id="value">100</span></p>
+    </div>
 
 <!--     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3-dsv.v1.min.js"></script> -->

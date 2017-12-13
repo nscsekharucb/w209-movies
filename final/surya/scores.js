@@ -167,18 +167,18 @@ var profitabilityPlot = function (data, update) {
                 var yPosition = parseFloat(d3.select(this).attr("y")) + 14;
 
                 //Update the tooltip position and value
-                d3.select("#surya_tooltip1")
-                    .style("left", xPosition + "px")
-                    .style("top", yPosition + "px")
+                d3.select("#surya_tooltip2")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY) + "px")
                     .select("#value")
-                    .text("Film:" + d.filmName + "Rotten Score:" + d.rottenScore + "Audience Score:" + d.audienceScore);
+                    .text("Film:" + d.filmName + "     Rotten Score:" + d.rottenScore + "     Audience Score:" + d.audienceScore);
 
                 //Show the tooltip
-                d3.select("#surya_tooltip1").classed("hidden", false);
+                d3.select("#surya_tooltip2").classed("hidden", false);
             })
             .on("mouseout", function () {
                 //Remove the tooltip
-                d3.select("#surya_tooltip1").classed("hidden", true);
+                d3.select("#surya_tooltip2").classed("hidden", true);
             });
     } else {
         svgScore.selectAll("rect")
